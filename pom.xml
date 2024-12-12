@@ -56,10 +56,7 @@
     
     <modules>
         <module>core</module>
-        <module>bungeecord</module>
         <module>paper</module>
-        <module>velocity</module>
         <module>version-uploader</module>
-        <module>addons/banplugins</module>
     </modules>
 </project>
