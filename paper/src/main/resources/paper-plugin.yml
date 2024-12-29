@@ -11,9 +11,6 @@ folia-supported: true
 
 dependencies:
   server:
-    PlaceholderAPI:
-      load: BEFORE
-      required: false
     ViaVersion:
       load: BEFORE
       required: false

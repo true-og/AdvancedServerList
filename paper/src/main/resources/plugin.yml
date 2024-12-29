@@ -19,7 +19,6 @@ libraries:
   - 'com.squareup.okhttp3:okhttp:4.10.0'
 
 softdepend:
-  - 'PlaceholderAPI'
   - 'Maintenance'
 
 commands:

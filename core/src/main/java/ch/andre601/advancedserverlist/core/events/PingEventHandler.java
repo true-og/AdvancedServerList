@@ -33,7 +33,6 @@ import ch.andre601.advancedserverlist.core.compat.maintenance.MaintenanceUtil;
 import ch.andre601.advancedserverlist.core.interfaces.PluginLogger;
 import ch.andre601.advancedserverlist.core.interfaces.core.PluginCore;
 import ch.andre601.advancedserverlist.core.interfaces.events.GenericEventWrapper;
-import ch.andre601.advancedserverlist.core.compat.papi.PAPIUtil;
 import ch.andre601.advancedserverlist.core.parsing.ComponentParser;
 import ch.andre601.advancedserverlist.core.profiles.ServerListProfile;
 import ch.andre601.advancedserverlist.core.profiles.profile.ProfileManager;
@@ -41,7 +40,6 @@ import ch.andre601.advancedserverlist.core.profiles.replacer.StringReplacer;
 
 public class PingEventHandler{
     
-    private static PAPIUtil papiUtil = null;
     private static MaintenanceUtil maintenanceUtil = null;
     
     public static <F, P extends GenericPlayer> void handleEvent(GenericEventWrapper<F, P> event){
@@ -115,7 +113,6 @@ public class PingEventHandler{
             event.setMotd(
                 ComponentParser.list(entry.motd())
                     .modifyText(text -> StringReplacer.replace(text, player, finalServer))
-                    .modifyText(text -> event.parsePAPIPlaceholders(text, player))
                     .toComponent()
             );
         }
@@ -134,7 +131,6 @@ public class PingEventHandler{
             event.setPlayerCount(
                 ComponentParser.text(entry.playerCountText())
                     .modifyText(text -> StringReplacer.replace(text, player, finalServer))
-                    .modifyText(text -> event.parsePAPIPlaceholders(text, player))
                     .toString()
             );
         }
@@ -173,13 +169,6 @@ public class PingEventHandler{
         
         logger.debug(PingEventHandler.class, "Event handling completed. Updating Ping data...");
         event.updateEvent();
-    }
-    
-    public static PAPIUtil getPAPIUtil(){
-        if(papiUtil != null)
-            return papiUtil;
-        
-        return (papiUtil = new PAPIUtil());
     }
     
     public static MaintenanceUtil getMaintenanceUtil(){

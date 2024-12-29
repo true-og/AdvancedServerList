@@ -57,6 +57,5 @@
     <modules>
         <module>core</module>
         <module>paper</module>
-        <module>version-uploader</module>
     </modules>
 </project>

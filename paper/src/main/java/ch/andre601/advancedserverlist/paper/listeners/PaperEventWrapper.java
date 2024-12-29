@@ -39,7 +39,6 @@ import ch.andre601.advancedserverlist.paper.objects.impl.PaperPlayerImpl;
 import ch.andre601.advancedserverlist.paper.objects.impl.PaperServerImpl;
 import com.destroystokyo.paper.event.server.PaperServerListPingEvent;
 import com.destroystokyo.paper.profile.PlayerProfile;
-import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -96,9 +95,6 @@ public class PaperEventWrapper implements GenericEventWrapper<CachedServerIcon, 
             String parsed = ComponentParser.text(line)
                 .modifyText(text -> StringReplacer.replace(text, player, server))
                 .modifyText(text -> {
-                    if(plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI"))
-                        return PlaceholderAPI.setPlaceholders(player.getPlayer(), text);
-                    
                     return text;
                 })
                 .toString();
@@ -159,10 +155,7 @@ public class PaperEventWrapper implements GenericEventWrapper<CachedServerIcon, 
     
     @Override
     public String parsePAPIPlaceholders(String text, PaperPlayerImpl player){
-        if(plugin.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI"))
-            return PlaceholderAPI.setPlaceholders(player.getPlayer(), text);
-        
-        return text;
+        return "";
     }
     
     @Override
