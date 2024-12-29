@@ -33,11 +33,8 @@ import ch.andre601.advancedserverlist.paper.commands.CmdAdvancedServerList;
 import ch.andre601.advancedserverlist.paper.listeners.LoadEvent;
 import ch.andre601.advancedserverlist.paper.logging.PaperLogger;
 import ch.andre601.advancedserverlist.paper.objects.WorldCache;
-import ch.andre601.advancedserverlist.paper.objects.placeholders.PAPIPlaceholders;
 import ch.andre601.advancedserverlist.paper.objects.placeholders.PaperPlayerPlaceholders;
 import ch.andre601.advancedserverlist.paper.objects.placeholders.PaperServerPlaceholders;
-import org.bstats.bukkit.Metrics;
-import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.CachedServerIcon;
@@ -50,7 +47,6 @@ public class PaperCore extends JavaPlugin implements PluginCore<CachedServerIcon
     
     private AdvancedServerList<CachedServerIcon> core;
     private FaviconHandler<CachedServerIcon> faviconHandler = null;
-    private PAPIPlaceholders papiPlaceholders = null;
     private WorldCache worldCache = null;
     
     @Override
@@ -69,16 +65,10 @@ public class PaperCore extends JavaPlugin implements PluginCore<CachedServerIcon
         
         this.core = AdvancedServerList.init(this, new PaperPlayerPlaceholders(), new PaperServerPlaceholders());
         
-        if(getServer().getPluginManager().isPluginEnabled("PlaceholderAPI"))
-            papiPlaceholders = new PAPIPlaceholders(this);
     }
     
     @Override
     public void onDisable(){
-        if(papiPlaceholders != null){
-            papiPlaceholders.unregister();
-            papiPlaceholders = null;
-        }
         
         if(worldCache != null)
             worldCache = null;
@@ -102,9 +92,6 @@ public class PaperCore extends JavaPlugin implements PluginCore<CachedServerIcon
     
     @Override
     public void loadMetrics(){
-        new Metrics(this, 15584).addCustomChart(new SimplePie("profiles",
-            () -> String.valueOf(core.getFileHandler().getProfiles().size())
-        ));
     }
     
     @Override
