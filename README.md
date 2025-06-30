@@ -1,6 +1,8 @@
 # AdvancedServerList
 
-AdvancedServerList is a plugin that allows you to customize your server's MOTD, favicon, Player count text and player count hover displayed in a player's multiplayer server list based on conditions and priorities.
+[AdvancedServerList](https://codeberg.org/Andre601/AdvancedServerList) is a plugin that allows you to customize your server's MOTD, favicon, Player count text and player count hover displayed in a player's multiplayer server list based on conditions and priorities.
+
+This branch builds using gradle for Purpur 1.19.4. Maintained for [TrueOG Network](https://trueog.net/)
 
 ## Downloads
 
