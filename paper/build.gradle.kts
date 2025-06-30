@@ -35,7 +35,9 @@ dependencies {
 tasks.withType<JavaCompile>().configureEach { dependsOn(project(":core").tasks.named("jar")) }
 
 tasks.shadowJar {
-    archiveClassifier.set("shadow")
+    archiveBaseName.set("AdvancedServerList")
+    archiveClassifier.set("")
+    destinationDirectory.set(rootProject.layout.buildDirectory.dir("libs"))
     relocate("org.bstats", "ch.andre601.advancedserverlist.spigot.depends.bstats")
     dependsOn(project(":core").tasks.named("shadowJar"))
     from(
@@ -45,11 +47,4 @@ tasks.shadowJar {
     )
 }
 
-tasks.register<Copy>("copyJar") {
-    dependsOn(tasks.shadowJar, tasks.jar)
-    from(tasks.shadowJar.flatMap { it.archiveFile })
-    into("${rootProject.projectDir}/target")
-    inputs.file(tasks.jar.flatMap { it.archiveFile })
-}
-
-tasks.build { dependsOn("copyJar") }
+tasks.build { dependsOn(tasks.shadowJar) }
