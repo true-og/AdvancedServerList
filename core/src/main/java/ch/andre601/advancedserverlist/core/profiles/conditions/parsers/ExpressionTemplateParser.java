@@ -33,101 +33,99 @@ import ch.andre601.advancedserverlist.core.profiles.conditions.templates.Express
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.Token;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpressionTemplateParser{
-    
+public class ExpressionTemplateParser {
+
     private final ImmutableMap<Token, Operator> operators;
     private final ImmutableList<ValueReader> valueReaders;
-    
-    public ExpressionTemplateParser(ImmutableMap<Token, Operator> operators, ImmutableList<ValueReader> valueReaders){
+
+    public ExpressionTemplateParser(ImmutableMap<Token, Operator> operators, ImmutableList<ValueReader> valueReaders) {
         this.operators = operators;
         this.valueReaders = valueReaders;
     }
-    
-    public ExpressionTemplate parse(List<Token> tokenList){
+
+    public ExpressionTemplate parse(List<Token> tokenList) {
         List<ExpressionTemplate> parts = new ArrayList<>();
         List<Operator> operators = new ArrayList<>();
-        
-        try{
+
+        try {
             parts.add(read(tokenList));
-        }catch(IllegalArgumentException ex){
+        } catch (IllegalArgumentException ex) {
             return ExpressionErrorTemplate.of(ex.getMessage());
         }
-        
-        while(!tokenList.isEmpty()){
+
+        while (!tokenList.isEmpty()) {
             Token token = tokenList.remove(0);
             Operator operator = this.operators.get(token);
-            if(operator == null){
-                return ExpressionErrorTemplate.of("Error while parsing Expression. Got \"" + token + "\" but expected OPERATOR.");
+            if (operator == null) {
+                return ExpressionErrorTemplate.of(
+                        "Error while parsing Expression. Got \"" + token + "\" but expected OPERATOR.");
             }
-            
+
             operators.add(operator);
-            if(tokenList.isEmpty()){
+            if (tokenList.isEmpty()) {
                 return ExpressionErrorTemplate.of("Received unexpected end of input.");
             }
-            
-            try{
+
+            try {
                 parts.add(read(tokenList));
-            }catch(IllegalArgumentException ex){
+            } catch (IllegalArgumentException ex) {
                 return ExpressionErrorTemplate.of(ex.getMessage());
             }
         }
-        
-        while(!operators.isEmpty()){
+
+        while (!operators.isEmpty()) {
             Operator operator = operators.get(0);
             int lowest = operator.getPriority();
             int start = 0;
             int end = 1;
-            for(int i = 1; i < operators.size(); i++){
+            for (int i = 1; i < operators.size(); i++) {
                 operator = operators.get(i);
-                if(operator.getPriority() < lowest){
+                if (operator.getPriority() < lowest) {
                     lowest = operator.getPriority();
                     start = i;
                     end = i + 1;
-                }else
-                if(operator.getPriority() > lowest){
+                } else if (operator.getPriority() > lowest) {
                     break;
-                }else{
+                } else {
                     end++;
                 }
             }
-            
+
             operator = operators.get(start);
-            
+
             ExpressionTemplate replacement;
-            if(start + 1 == end){
+            if (start + 1 == end) {
                 replacement = operator.createTemplate(parts.get(start), parts.get(end));
-            }else
-            if(operator instanceof ListOperator listOperator){
+            } else if (operator instanceof ListOperator listOperator) {
                 replacement = listOperator.createTemplate(new ArrayList<>(parts.subList(start, end + 1)));
-            }else{
+            } else {
                 List<ExpressionTemplate> conditions = new ArrayList<>(end - start);
-                for(int i = start; i < end; i++)
+                for (int i = start; i < end; i++)
                     conditions.add(operators.get(i).createTemplate(parts.get(i), parts.get(i + 1)));
-                
+
                 replacement = ExpressionTemplates.and(conditions);
             }
-            
-            for(int i = start; i < end; i++){
+
+            for (int i = start; i < end; i++) {
                 parts.remove(start);
                 operators.remove(start);
             }
             parts.set(start, replacement);
         }
-        
+
         return parts.get(0);
     }
-    
-    ExpressionTemplate read(List<Token> tokenList){
-        for(ValueReader valueReader : valueReaders){
+
+    ExpressionTemplate read(List<Token> tokenList) {
+        for (ValueReader valueReader : valueReaders) {
             ExpressionTemplate template = valueReader.read(this, tokenList);
-            if(template != null)
-                return template;
+            if (template != null) return template;
         }
-        
-        throw new IllegalArgumentException("Invalid Expression. Expected literal but got token \"" + tokenList.get(0).toString() + "\"");
+
+        throw new IllegalArgumentException("Invalid Expression. Expected literal but got token \""
+                + tokenList.get(0).toString() + "\"");
     }
 }

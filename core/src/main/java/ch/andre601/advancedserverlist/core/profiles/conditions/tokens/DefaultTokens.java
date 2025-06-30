@@ -25,7 +25,7 @@
 
 package ch.andre601.advancedserverlist.core.profiles.conditions.tokens;
 
-public class DefaultTokens{
+public class DefaultTokens {
     public static final Token AND = new Token("AND");
     public static final Token OR = new Token("OR");
     public static final Token OPENING_PARENTHESIS = new Token("OPENING_PARENTHESIS");

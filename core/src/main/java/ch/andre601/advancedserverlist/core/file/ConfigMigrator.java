@@ -27,76 +27,77 @@ package ch.andre601.advancedserverlist.core.file;
 
 import ch.andre601.advancedserverlist.core.AdvancedServerList;
 import ch.andre601.advancedserverlist.core.interfaces.PluginLogger;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import org.spongepowered.configurate.ConfigurateException;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.NodePath;
 import org.spongepowered.configurate.transformation.ConfigurationTransformation;
 import org.spongepowered.configurate.transformation.TransformAction;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+public class ConfigMigrator {
 
-public class ConfigMigrator{
-    
     public static final int LATEST = resolveConfigVersion();
-    
-    private ConfigMigrator(){}
-    
-    public static ConfigurationTransformation.Versioned create(){
+
+    private ConfigMigrator() {}
+
+    public static ConfigurationTransformation.Versioned create() {
         return ConfigurationTransformation.versionedBuilder()
-            .versionKey("configVersion")
-            .addVersion(LATEST, twoToThree())
-            .addVersion(2, oneToTwo())
-            .build();
+                .versionKey("configVersion")
+                .addVersion(LATEST, twoToThree())
+                .addVersion(2, oneToTwo())
+                .build();
     }
-    
-    public static ConfigurationTransformation twoToThree(){
+
+    public static ConfigurationTransformation twoToThree() {
         return ConfigurationTransformation.builder()
-            .addAction(NodePath.path(), ((path, value) -> {
-                value.node("debug").set(false);
-                
-                return null;
-            }))
-            .build();
+                .addAction(NodePath.path(), ((path, value) -> {
+                    value.node("debug").set(false);
+
+                    return null;
+                }))
+                .build();
     }
-    
-    public static ConfigurationTransformation oneToTwo(){
+
+    public static ConfigurationTransformation oneToTwo() {
         return ConfigurationTransformation.builder()
-            .addAction(NodePath.path("unknown_player"), (path, value) -> new Object[]{"unknownPlayer", "name"})
-            .addAction(NodePath.path("unknown_player_uuid"), (path, value) -> new Object[]{"unknownPlayer", "uuid"})
-            .addAction(NodePath.path("disable_cache"), TransformAction.rename("disableCache"))
-            .addAction(NodePath.path("check_updates"), TransformAction.rename("checkUpdates"))
-            .addAction(NodePath.path("send_statistics"), TransformAction.rename("sendStatistics"))
-            .addAction(NodePath.path(), (path, value) -> {
-                value.node("configVersion").set(LATEST);
-                
-                return null;
-            })
-            .build();
+                .addAction(NodePath.path("unknown_player"), (path, value) -> new Object[] {"unknownPlayer", "name"})
+                .addAction(
+                        NodePath.path("unknown_player_uuid"), (path, value) -> new Object[] {"unknownPlayer", "uuid"})
+                .addAction(NodePath.path("disable_cache"), TransformAction.rename("disableCache"))
+                .addAction(NodePath.path("check_updates"), TransformAction.rename("checkUpdates"))
+                .addAction(NodePath.path("send_statistics"), TransformAction.rename("sendStatistics"))
+                .addAction(NodePath.path(), (path, value) -> {
+                    value.node("configVersion").set(LATEST);
+
+                    return null;
+                })
+                .build();
     }
-    
-    public static <N extends ConfigurationNode> N updateNode(final N node, PluginLogger logger) throws ConfigurateException{
-        if(!node.virtual()){
+
+    public static <N extends ConfigurationNode> N updateNode(final N node, PluginLogger logger)
+            throws ConfigurateException {
+        if (!node.virtual()) {
             final ConfigurationTransformation.Versioned versioned = create();
             final int startVersion = versioned.version(node);
             versioned.apply(node);
             final int endVersion = versioned.version(node);
-            if(startVersion < endVersion)
+            if (startVersion < endVersion)
                 logger.info("Migrated config.yml from v" + startVersion + " to v" + endVersion);
         }
-        
+
         return node;
     }
-    
-    private static int resolveConfigVersion(){
-        try(InputStream is = AdvancedServerList.class.getResourceAsStream("/version.properties")){
+
+    private static int resolveConfigVersion() {
+        try (InputStream is = AdvancedServerList.class.getResourceAsStream("/version.properties")) {
             Properties properties = new Properties();
-            
+
             properties.load(is);
-            
+
             return Integer.parseInt(properties.getProperty("config-version"));
-        }catch(IOException | NumberFormatException ex){
+        } catch (IOException | NumberFormatException ex) {
             return -1;
         }
     }

@@ -26,27 +26,26 @@
 package ch.andre601.advancedserverlist.core.profiles.players;
 
 import ch.andre601.advancedserverlist.api.objects.GenericPlayer;
-
 import java.util.UUID;
 
-public abstract class GenericPlayerImpl implements GenericPlayer{
-    
+public abstract class GenericPlayerImpl implements GenericPlayer {
+
     protected String name = null;
     protected int protocol = 0;
     protected UUID uuid = null;
-    
+
     @Override
-    public String getName(){
+    public String getName() {
         return name;
     }
-    
+
     @Override
-    public int getProtocol(){
+    public int getProtocol() {
         return protocol;
     }
-    
+
     @Override
-    public UUID getUUID(){
+    public UUID getUUID() {
         return uuid;
     }
 }

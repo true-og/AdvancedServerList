@@ -25,16 +25,16 @@
 
 package ch.andre601.advancedserverlist.core.profiles.conditions.tokens;
 
-public class StringToken extends Token{
-    
+public class StringToken extends Token {
+
     private final String value;
-    
-    public StringToken(String value){
+
+    public StringToken(String value) {
         super("STRING(" + value + ")");
         this.value = value;
     }
-    
-    public String getValue(){
+
+    public String getValue() {
         return value;
     }
 }

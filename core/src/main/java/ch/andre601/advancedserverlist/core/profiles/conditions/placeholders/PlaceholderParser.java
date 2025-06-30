@@ -29,83 +29,77 @@ import ch.andre601.advancedserverlist.api.AdvancedServerListAPI;
 import ch.andre601.advancedserverlist.api.PlaceholderProvider;
 import ch.andre601.advancedserverlist.api.objects.GenericPlayer;
 import ch.andre601.advancedserverlist.api.objects.GenericServer;
-
 import java.text.ParsePosition;
 
-public class PlaceholderParser{
-    
-    public static Placeholder parse(String text, ParsePosition position, GenericPlayer player, GenericServer server){
+public class PlaceholderParser {
+
+    public static Placeholder parse(String text, ParsePosition position, GenericPlayer player, GenericServer server) {
         AdvancedServerListAPI api = AdvancedServerListAPI.get();
         int index = position.getIndex();
-        
+
         StringBuilder identifier = new StringBuilder();
         StringBuilder values = new StringBuilder();
-        
+
         boolean identified = false;
         boolean invalid = true;
-        
+
         char[] chars = text.substring(index).toCharArray();
-        for(final char c : chars){
+        for (final char c : chars) {
             index++;
-            if(c == '}'){
+            if (c == '}') {
                 invalid = false;
                 break;
             }
-            
-            if(c == ' ' && !identified){
+
+            if (c == ' ' && !identified) {
                 identified = true;
                 continue;
             }
-            
-            if(identified){
+
+            if (identified) {
                 values.append(c);
-            }else{
+            } else {
                 identifier.append(c);
             }
         }
-        
+
         String identifierStr = identifier.toString();
         String valuesStr = values.toString();
-        
+
         StringBuilder raw = new StringBuilder();
-        
+
         position.setIndex(index + 1);
-        
-        if(invalid){
+
+        if (invalid) {
             raw.append("${").append(identifierStr);
-            
-            if(identified)
-                raw.append(' ').append(valuesStr);
-            
-            
+
+            if (identified) raw.append(' ').append(valuesStr);
+
             return Placeholder.of(raw.toString());
         }
-        
+
         PlaceholderProvider provider = api.retrievePlaceholderProvider(identifierStr);
-        if(provider == null){
+        if (provider == null) {
             raw.append("${").append(identifierStr);
-            
-            if(identified)
-                raw.append(' ').append(valuesStr);
-            
-            
+
+            if (identified) raw.append(' ').append(valuesStr);
+
             raw.append('}');
-            
+
             return Placeholder.of(raw.toString());
         }
-        
+
         String replacement = provider.parsePlaceholder(valuesStr, player, server);
-        if(replacement == null){
+        if (replacement == null) {
             raw.append("${").append(identifierStr);
-            
-            if(identified)
-                raw.append(' ').append(valuesStr);
-            
+
+            if (identified) raw.append(' ').append(valuesStr);
+
             raw.append('}');
-            
+
             return Placeholder.of(raw.toString());
         }
-        
+
         return Placeholder.of(replacement);
     }
 }

@@ -27,14 +27,13 @@ package ch.andre601.advancedserverlist.core.profiles.conditions.templates;
 
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.Expression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToStringExpression;
-
 import java.util.Collection;
 
-public abstract class AbstractToStringExpression<T extends Expression> implements ToStringExpression{
-    
+public abstract class AbstractToStringExpression<T extends Expression> implements ToStringExpression {
+
     protected Collection<T> operands;
-    
-    public AbstractToStringExpression(Collection<T> operands){
+
+    public AbstractToStringExpression(Collection<T> operands) {
         this.operands = operands;
     }
 }

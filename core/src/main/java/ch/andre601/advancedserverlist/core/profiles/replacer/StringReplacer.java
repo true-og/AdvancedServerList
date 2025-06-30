@@ -30,105 +30,103 @@ import ch.andre601.advancedserverlist.api.PlaceholderProvider;
 import ch.andre601.advancedserverlist.api.objects.GenericPlayer;
 import ch.andre601.advancedserverlist.api.objects.GenericServer;
 
-public class StringReplacer{
-    
-    public static String replace(String input, GenericPlayer player, GenericServer server){
-        if(input == null)
-            return null;
-        
+public class StringReplacer {
+
+    public static String replace(String input, GenericPlayer player, GenericServer server) {
+        if (input == null) return null;
+
         char[] chars = input.toCharArray();
         StringBuilder builder = new StringBuilder(input.length());
-        
+
         StringBuilder identifier = new StringBuilder();
         StringBuilder placeholder = new StringBuilder();
-        
+
         AdvancedServerListAPI api = AdvancedServerListAPI.get();
-        
-        for(int i = 0; i < chars.length; i++){
+
+        for (int i = 0; i < chars.length; i++) {
             char c = chars[i];
             char next = (i == (chars.length - 1)) ? '\0' : chars[i + 1];
-            
-            if(c != '$' || i + 2 >= chars.length){
+
+            if (c != '$' || i + 2 >= chars.length) {
                 builder.append(c);
                 continue;
             }
-            
-            if(next != '{'){
-                if(next == '\0')
-                    continue;
-                
+
+            if (next != '{') {
+                if (next == '\0') continue;
+
                 builder.append(next);
                 i++;
                 continue;
             }
-            
+
             i++;
-            
+
             boolean identified = false;
             boolean invalid = true;
-            
-            while(++i < chars.length){
+
+            while (++i < chars.length) {
                 final char id = chars[i];
-                
-                if(id == '}'){
+
+                if (id == '}') {
                     invalid = false;
                     break;
                 }
-                
-                if(id == ' ' && !identified){
+
+                if (id == ' ' && !identified) {
                     identified = true;
                     continue;
                 }
-                
-                if(identified){
+
+                if (identified) {
                     placeholder.append(id);
-                }else{
+                } else {
                     identifier.append(id);
                 }
             }
-            
+
             String identifierString = identifier.toString();
             String placeholderString = placeholder.toString();
-            
+
             identifier.setLength(0);
             placeholder.setLength(0);
-            
-            if(invalid){
+
+            if (invalid) {
                 builder.append("${").append(identifierString);
-                
-                if(identified){
+
+                if (identified) {
                     builder.append(' ').append(placeholderString);
                 }
                 continue;
             }
-            
+
             PlaceholderProvider provider = api.retrievePlaceholderProvider(identifierString);
-            if(provider == null){
+            if (provider == null) {
                 builder.append("${").append(identifierString);
-    
-                if(identified){
+
+                if (identified) {
                     builder.append(' ').append(placeholderString);
                 }
-                
+
                 builder.append('}');
                 continue;
             }
-            
+
             String replacement = provider.parsePlaceholder(placeholderString, player, server);
-            if(replacement == null){
+            if (replacement == null) {
                 builder.append("${").append(identifierString);
-    
-                if(identified){
+
+                if (identified) {
                     builder.append(' ').append(placeholderString);
                 }
-    
+
                 builder.append('}');
                 continue;
             }
-            
+
             builder.append(replacement);
         }
-        
+
         return builder.toString();
     }
 }

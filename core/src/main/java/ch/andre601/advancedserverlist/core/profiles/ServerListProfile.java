@@ -32,42 +32,41 @@ import ch.andre601.advancedserverlist.core.interfaces.PluginLogger;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ExpressionEngine;
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.ExpressionErrorTemplate;
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.ExpressionTemplate;
-import org.spongepowered.configurate.ConfigurationNode;
-import org.spongepowered.configurate.serialize.SerializationException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import org.spongepowered.configurate.ConfigurationNode;
+import org.spongepowered.configurate.serialize.SerializationException;
 
-public record ServerListProfile(int priority, String condition, ProfileEntry defaultProfile, List<ProfileEntry> profiles){
+public record ServerListProfile(
+        int priority, String condition, ProfileEntry defaultProfile, List<ProfileEntry> profiles) {
     private static final Random random = new Random();
-    
-    public boolean evalConditions(ExpressionEngine expressionEngine, PluginLogger logger, GenericPlayer player, GenericServer server){
-        if(condition == null || condition.isEmpty())
-            return true;
-        
+
+    public boolean evalConditions(
+            ExpressionEngine expressionEngine, PluginLogger logger, GenericPlayer player, GenericServer server) {
+        if (condition == null || condition.isEmpty()) return true;
+
         ExpressionTemplate template = expressionEngine.compile(condition, logger, player, server);
-        if(template instanceof ExpressionErrorTemplate errorTemplate){
+        if (template instanceof ExpressionErrorTemplate errorTemplate) {
             logger.warn(errorTemplate.instantiateWithStringResult().evaluate());
             return false;
         }
-        
+
         return template.instantiateWithBooleanResult().evaluate();
     }
-    
-    public ProfileEntry getRandomProfile(){
-        if(profiles.isEmpty()){
+
+    public ProfileEntry getRandomProfile() {
+        if (profiles.isEmpty()) {
             return null;
         }
-        
-        if(profiles.size() == 1)
-            return profiles.get(0); // No need to run a random for 1 profile.
-        
-        synchronized(random){
+
+        if (profiles.size() == 1) return profiles.get(0); // No need to run a random for 1 profile.
+
+        synchronized (random) {
             return profiles.get(random.nextInt(profiles.size()));
         }
     }
-    
+
     /*
      * Returns true if the Profile...
      * ...doesn't have any valid MOTD set AND
@@ -75,78 +74,77 @@ public record ServerListProfile(int priority, String condition, ProfileEntry def
      * ...doesn't have a player count text set and hidePlayers is false AND
      * ...doesn't have a favicon set.
      */
-    public boolean isInvalidProfile(){
-        if(profiles().isEmpty())
-            return defaultProfile().isInvalid();
-        
+    public boolean isInvalidProfile() {
+        if (profiles().isEmpty()) return defaultProfile().isInvalid();
+
         boolean profilesValid = false;
-        
-        for(ProfileEntry profile : profiles()){
-            if(profile.isInvalid())
-                continue;
-            
+
+        for (ProfileEntry profile : profiles()) {
+            if (profile.isInvalid()) continue;
+
             profilesValid = true;
             break;
         }
-    
+
         return !profilesValid && defaultProfile.isInvalid();
     }
-    
-    public static class Builder{
-        
+
+    public static class Builder {
+
         private final String fileName;
         private final ConfigurationNode node;
         private final int priority;
-        
+
         private final PluginLogger logger;
-        
+
         private String condition = null;
         private List<ProfileEntry> profiles = new ArrayList<>();
         private ProfileEntry defaultProfile = ProfileEntry.empty();
-        
-        private Builder(String fileName, ConfigurationNode node, PluginLogger logger){
+
+        private Builder(String fileName, ConfigurationNode node, PluginLogger logger) {
             this.fileName = fileName;
             this.node = node;
             this.priority = node.node("priority").getInt();
             this.logger = logger;
         }
-        
-        public static Builder resolve(String fileName, ConfigurationNode node, PluginLogger logger){
+
+        public static Builder resolve(String fileName, ConfigurationNode node, PluginLogger logger) {
             return new Builder(fileName, node, logger)
-                .resolveCondition()
-                .resolveProfiles()
-                .resolveDefaultProfile();
+                    .resolveCondition()
+                    .resolveProfiles()
+                    .resolveDefaultProfile();
         }
-        
-        private Builder resolveCondition(){
+
+        private Builder resolveCondition() {
             String condition = node.node("condition").getString();
-            if(condition == null || condition.isEmpty())
-                return this;
-            
+            if (condition == null || condition.isEmpty()) return this;
+
             this.condition = condition;
             return this;
         }
-        
-        private Builder resolveProfiles(){
-            try{
+
+        private Builder resolveProfiles() {
+            try {
                 this.profiles = node.node("profiles").getList(ProfileEntry.class);
-            }catch(SerializationException ex){
-                logger.warn("Encountered a SerializationException while resolving the profiles entry for %s", ex, fileName);
+            } catch (SerializationException ex) {
+                logger.warn(
+                        "Encountered a SerializationException while resolving the profiles entry for %s", ex, fileName);
             }
-            
+
             return this;
         }
-        
-        private Builder resolveDefaultProfile(){
-            try{
+
+        private Builder resolveDefaultProfile() {
+            try {
                 this.defaultProfile = node.get(ProfileEntry.class);
-            }catch(SerializationException ex){
-                logger.warn("Encountered a SerializationException while resolving the global profile for %s", ex, fileName);
+            } catch (SerializationException ex) {
+                logger.warn(
+                        "Encountered a SerializationException while resolving the global profile for %s", ex, fileName);
             }
             return this;
         }
-        
-        public ServerListProfile build(){
+
+        public ServerListProfile build() {
             return new ServerListProfile(this.priority, this.condition, this.defaultProfile, this.profiles);
         }
     }

@@ -26,211 +26,208 @@
 package ch.andre601.advancedserverlist.core.profiles.conditions.expressions;
 
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.*;
-
 import java.util.Collection;
 
-public class Expressions{
-    
-    public static ToBooleanExpression negate(ToBooleanExpression expression){
-        return new AbstractUnaryToBooleanExpression<>(expression){
+public class Expressions {
+
+    public static ToBooleanExpression negate(ToBooleanExpression expression) {
+        return new AbstractUnaryToBooleanExpression<>(expression) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return !delegate.evaluate();
             }
         };
     }
-    
-    public static ToBooleanExpression and(Collection<ToBooleanExpression> operands){
-        return new AbstractToBooleanExpression<>(operands){
+
+    public static ToBooleanExpression and(Collection<ToBooleanExpression> operands) {
+        return new AbstractToBooleanExpression<>(operands) {
             @Override
-            public boolean evaluate(){
-                for(ToBooleanExpression operand : operands){
-                    if(!operand.evaluate())
-                        return false;
+            public boolean evaluate() {
+                for (ToBooleanExpression operand : operands) {
+                    if (!operand.evaluate()) return false;
                 }
-                
+
                 return true;
             }
         };
     }
-    
-    public static ToBooleanExpression or(Collection<ToBooleanExpression> operands){
-        return new AbstractToBooleanExpression<>(operands){
+
+    public static ToBooleanExpression or(Collection<ToBooleanExpression> operands) {
+        return new AbstractToBooleanExpression<>(operands) {
             @Override
-            public boolean evaluate(){
-                for(ToBooleanExpression operand : operands){
-                    if(operand.evaluate())
-                        return true;
+            public boolean evaluate() {
+                for (ToBooleanExpression operand : operands) {
+                    if (operand.evaluate()) return true;
                 }
-                
+
                 return false;
             }
         };
     }
-    
-    public static ToStringExpression concat(Collection<ToStringExpression> operands){
-        return new AbstractToStringExpression<>(operands){
+
+    public static ToStringExpression concat(Collection<ToStringExpression> operands) {
+        return new AbstractToStringExpression<>(operands) {
             @Override
-            public String evaluate(){
+            public String evaluate() {
                 StringBuilder result = new StringBuilder();
-                for(ToStringExpression operand : operands){
+                for (ToStringExpression operand : operands) {
                     result.append(operand.evaluate());
                 }
-                
+
                 return result.toString();
             }
         };
     }
-    
-    public static ToBooleanExpression equal(ToStringExpression a, ToStringExpression b){
-        return new AbstractBinaryToBooleanExpression<>(a, b){
+
+    public static ToBooleanExpression equal(ToStringExpression a, ToStringExpression b) {
+        return new AbstractBinaryToBooleanExpression<>(a, b) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return a.evaluate().equals(b.evaluate());
             }
         };
     }
-    
-    public static ToBooleanExpression notEqual(ToStringExpression a, ToStringExpression b){
-        return new AbstractBinaryToBooleanExpression<>(a, b){
+
+    public static ToBooleanExpression notEqual(ToStringExpression a, ToStringExpression b) {
+        return new AbstractBinaryToBooleanExpression<>(a, b) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return !a.evaluate().equals(b.evaluate());
             }
         };
     }
-    
-    public static ToBooleanExpression equalIgnoreCase(ToStringExpression a, ToStringExpression b){
-        return new AbstractBinaryToBooleanExpression<>(a, b){
+
+    public static ToBooleanExpression equalIgnoreCase(ToStringExpression a, ToStringExpression b) {
+        return new AbstractBinaryToBooleanExpression<>(a, b) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return a.evaluate().equalsIgnoreCase(b.evaluate());
             }
         };
     }
-    
-    public static ToBooleanExpression notEqualIgnoreCase(ToStringExpression a, ToStringExpression b){
-        return new AbstractBinaryToBooleanExpression<>(a, b){
+
+    public static ToBooleanExpression notEqualIgnoreCase(ToStringExpression a, ToStringExpression b) {
+        return new AbstractBinaryToBooleanExpression<>(a, b) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return !a.evaluate().equalsIgnoreCase(b.evaluate());
             }
         };
     }
-    
-    public static ToBooleanExpression startsWith(ToStringExpression a, ToStringExpression b){
-        return new AbstractBinaryToBooleanExpression<>(a, b){
+
+    public static ToBooleanExpression startsWith(ToStringExpression a, ToStringExpression b) {
+        return new AbstractBinaryToBooleanExpression<>(a, b) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return a.evaluate().startsWith(b.evaluate());
             }
         };
     }
-    
-    public static ToBooleanExpression endsWith(ToStringExpression a, ToStringExpression b){
-        return new AbstractBinaryToBooleanExpression<>(a, b){
+
+    public static ToBooleanExpression endsWith(ToStringExpression a, ToStringExpression b) {
+        return new AbstractBinaryToBooleanExpression<>(a, b) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return a.evaluate().endsWith(b.evaluate());
             }
         };
     }
-    
-    public static ToBooleanExpression contains(ToStringExpression a, ToStringExpression b){
-        return new AbstractBinaryToBooleanExpression<>(a, b){
+
+    public static ToBooleanExpression contains(ToStringExpression a, ToStringExpression b) {
+        return new AbstractBinaryToBooleanExpression<>(a, b) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return a.evaluate().contains(b.evaluate());
             }
         };
     }
-    
-    public static ToBooleanExpression greaterThan(ToDoubleExpression a, ToDoubleExpression b){
-        return new AbstractBinaryToBooleanExpression<>(a, b){
+
+    public static ToBooleanExpression greaterThan(ToDoubleExpression a, ToDoubleExpression b) {
+        return new AbstractBinaryToBooleanExpression<>(a, b) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return a.evaluate() > b.evaluate();
             }
         };
     }
-    
-    public static ToBooleanExpression greaterOrEqualThan(ToDoubleExpression a, ToDoubleExpression b){
-        return new AbstractBinaryToBooleanExpression<>(a, b){
+
+    public static ToBooleanExpression greaterOrEqualThan(ToDoubleExpression a, ToDoubleExpression b) {
+        return new AbstractBinaryToBooleanExpression<>(a, b) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return a.evaluate() >= b.evaluate();
             }
         };
     }
-    
-    public static ToBooleanExpression lessThan(ToDoubleExpression a, ToDoubleExpression b){
-        return new AbstractBinaryToBooleanExpression<>(a, b){
+
+    public static ToBooleanExpression lessThan(ToDoubleExpression a, ToDoubleExpression b) {
+        return new AbstractBinaryToBooleanExpression<>(a, b) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return a.evaluate() < b.evaluate();
             }
         };
     }
-    
-    public static ToBooleanExpression lessOrEqualThan(ToDoubleExpression a, ToDoubleExpression b){
-        return new AbstractBinaryToBooleanExpression<>(a, b){
+
+    public static ToBooleanExpression lessOrEqualThan(ToDoubleExpression a, ToDoubleExpression b) {
+        return new AbstractBinaryToBooleanExpression<>(a, b) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return a.evaluate() <= b.evaluate();
             }
         };
     }
-    
-    public static ToDoubleExpression sum(Collection<ToDoubleExpression> operands){
-        return new AbstractToDoubleExpression<>(operands){
+
+    public static ToDoubleExpression sum(Collection<ToDoubleExpression> operands) {
+        return new AbstractToDoubleExpression<>(operands) {
             @Override
-            public double evaluate(){
+            public double evaluate() {
                 double result = 0;
-                for(ToDoubleExpression operand : operands){
+                for (ToDoubleExpression operand : operands) {
                     result += operand.evaluate();
                 }
-                
+
                 return result;
             }
         };
     }
-    
-    public static ToDoubleExpression product(Collection<ToDoubleExpression> operands){
-        return new AbstractToDoubleExpression<>(operands){
+
+    public static ToDoubleExpression product(Collection<ToDoubleExpression> operands) {
+        return new AbstractToDoubleExpression<>(operands) {
             @Override
-            public double evaluate(){
+            public double evaluate() {
                 double result = 1;
-                for(ToDoubleExpression operand : operands){
+                for (ToDoubleExpression operand : operands) {
                     result *= operand.evaluate();
                 }
-                
+
                 return result;
             }
         };
     }
-    
-    public static ToDoubleExpression sub(ToDoubleExpression a, ToDoubleExpression b){
-        return new AbstractBinaryToDoubleExpression<>(a, b){
+
+    public static ToDoubleExpression sub(ToDoubleExpression a, ToDoubleExpression b) {
+        return new AbstractBinaryToDoubleExpression<>(a, b) {
             @Override
-            public double evaluate(){
+            public double evaluate() {
                 return a.evaluate() - b.evaluate();
             }
         };
     }
-    
-    public static ToDoubleExpression div(ToDoubleExpression a, ToDoubleExpression b){
-        return new AbstractBinaryToDoubleExpression<>(a, b){
+
+    public static ToDoubleExpression div(ToDoubleExpression a, ToDoubleExpression b) {
+        return new AbstractBinaryToDoubleExpression<>(a, b) {
             @Override
-            public double evaluate(){
+            public double evaluate() {
                 return a.evaluate() / b.evaluate();
             }
         };
     }
-    
-    public static ToDoubleExpression negateNumber(ToDoubleExpression a){
-        return new AbstractUnaryToDoubleExpression<>(a){
+
+    public static ToDoubleExpression negateNumber(ToDoubleExpression a) {
+        return new AbstractUnaryToDoubleExpression<>(a) {
             @Override
-            public double evaluate(){
+            public double evaluate() {
                 return -delegate.evaluate();
             }
         };

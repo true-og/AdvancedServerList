@@ -26,29 +26,27 @@
 package ch.andre601.advancedserverlist.paper.listeners;
 
 import ch.andre601.advancedserverlist.paper.PaperCore;
+import java.net.InetSocketAddress;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import java.net.InetSocketAddress;
+public class JoinEvent implements Listener {
 
-public class JoinEvent implements Listener{
-    
     private final PaperCore plugin;
-    
-    public JoinEvent(PaperCore plugin){
+
+    public JoinEvent(PaperCore plugin) {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
-    
+
     @EventHandler
-    public void onJoin(PlayerJoinEvent event){
+    public void onJoin(PlayerJoinEvent event) {
         InetSocketAddress address = event.getPlayer().getAddress();
-        if(address == null)
-            return;
-        
+        if (address == null) return;
+
         Player player = event.getPlayer();
         plugin.getCore().getPlayerHandler().addPlayer(address.getHostString(), player.getName(), player.getUniqueId());
     }

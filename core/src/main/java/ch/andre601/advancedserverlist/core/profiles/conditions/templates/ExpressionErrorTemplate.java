@@ -29,30 +29,30 @@ import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToBoo
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToDoubleExpression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToStringExpression;
 
-public class ExpressionErrorTemplate implements ExpressionTemplate{
-    
+public class ExpressionErrorTemplate implements ExpressionTemplate {
+
     private final String msg;
-    
-    private ExpressionErrorTemplate(String msg){
+
+    private ExpressionErrorTemplate(String msg) {
         this.msg = msg;
     }
-    
-    public static ExpressionErrorTemplate of(String msg){
+
+    public static ExpressionErrorTemplate of(String msg) {
         return new ExpressionErrorTemplate(msg);
     }
-    
+
     @Override
-    public ToStringExpression instantiateWithStringResult(){
+    public ToStringExpression instantiateWithStringResult() {
         return ToStringExpression.literal(msg);
     }
-    
+
     @Override
-    public ToDoubleExpression instantiateWithDoubleResult(){
+    public ToDoubleExpression instantiateWithDoubleResult() {
         return ToDoubleExpression.literal(0);
     }
-    
+
     @Override
-    public ToBooleanExpression instantiateWithBooleanResult(){
+    public ToBooleanExpression instantiateWithBooleanResult() {
         return ToBooleanExpression.literal(false);
     }
 }

@@ -31,76 +31,75 @@ import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToStr
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.AbstractUnaryToBooleanExpression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.AbstractUnaryToDoubleExpression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.AbstractUnaryToStringExpression;
-
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-public class Conversions{
-    
-    private final static NumberFormat NUMBER_FORMAT;
-    
+public class Conversions {
+
+    private static final NumberFormat NUMBER_FORMAT;
+
     static {
         NUMBER_FORMAT = NumberFormat.getNumberInstance(Locale.ROOT);
         NUMBER_FORMAT.setGroupingUsed(false);
     }
-    
-    public static ToBooleanExpression toBoolean(ToDoubleExpression expression){
+
+    public static ToBooleanExpression toBoolean(ToDoubleExpression expression) {
         return new AbstractUnaryToBooleanExpression<>(expression) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return delegate.evaluate() != 0;
             }
         };
     }
-    
-    public static ToBooleanExpression toBoolean(ToStringExpression expression){
+
+    public static ToBooleanExpression toBoolean(ToStringExpression expression) {
         return new AbstractUnaryToBooleanExpression<>(expression) {
             @Override
-            public boolean evaluate(){
+            public boolean evaluate() {
                 return Boolean.parseBoolean(delegate.evaluate());
             }
         };
     }
-    
-    public static ToDoubleExpression toDouble(ToBooleanExpression expression){
+
+    public static ToDoubleExpression toDouble(ToBooleanExpression expression) {
         return new AbstractUnaryToDoubleExpression<>(expression) {
             @Override
-            public double evaluate(){
+            public double evaluate() {
                 return delegate.evaluate() ? 1 : 0;
             }
         };
     }
-    
-    public static ToDoubleExpression toDouble(ToStringExpression expression){
+
+    public static ToDoubleExpression toDouble(ToStringExpression expression) {
         return new AbstractUnaryToDoubleExpression<>(expression) {
             @Override
-            public double evaluate(){
+            public double evaluate() {
                 String result = delegate.evaluate();
-                try{
+                try {
                     return NUMBER_FORMAT.parse(result).doubleValue();
-                }catch(ParseException | NumberFormatException ex){
+                } catch (ParseException | NumberFormatException ex) {
                     return 0;
                 }
             }
         };
     }
-    
-    public static ToStringExpression toString(ToBooleanExpression expression){
+
+    public static ToStringExpression toString(ToBooleanExpression expression) {
         return new AbstractUnaryToStringExpression<>(expression) {
             @Override
-            public String evaluate(){
+            public String evaluate() {
                 return Boolean.toString(delegate.evaluate());
             }
         };
     }
-    
-    public static ToStringExpression toString(ToDoubleExpression expression){
+
+    public static ToStringExpression toString(ToDoubleExpression expression) {
         return new AbstractUnaryToStringExpression<>(expression) {
             @Override
-            public String evaluate(){
+            public String evaluate() {
                 double result = delegate.evaluate();
-                return result == (int)result ? Integer.toString((int)result) : Double.toString(result);
+                return result == (int) result ? Integer.toString((int) result) : Double.toString(result);
             }
         };
     }

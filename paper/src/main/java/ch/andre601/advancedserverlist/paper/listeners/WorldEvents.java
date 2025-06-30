@@ -31,21 +31,21 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldLoadEvent;
 import org.bukkit.event.world.WorldUnloadEvent;
 
-public class WorldEvents implements Listener{
-    
+public class WorldEvents implements Listener {
+
     private final PaperCore plugin;
-    
-    public WorldEvents(PaperCore plugin){
+
+    public WorldEvents(PaperCore plugin) {
         this.plugin = plugin;
     }
-    
+
     @EventHandler
-    public void onWorldLoad(WorldLoadEvent event){
+    public void onWorldLoad(WorldLoadEvent event) {
         plugin.getWorldCache().addWorld(event.getWorld());
     }
-    
+
     @EventHandler
-    public void onWorldUnload(WorldUnloadEvent event){
+    public void onWorldUnload(WorldUnloadEvent event) {
         plugin.getWorldCache().removeWorld(event.getWorld().getName());
     }
 }

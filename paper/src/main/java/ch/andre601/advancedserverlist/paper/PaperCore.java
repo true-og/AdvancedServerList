@@ -35,120 +35,114 @@ import ch.andre601.advancedserverlist.paper.logging.PaperLogger;
 import ch.andre601.advancedserverlist.paper.objects.WorldCache;
 import ch.andre601.advancedserverlist.paper.objects.placeholders.PaperPlayerPlaceholders;
 import ch.andre601.advancedserverlist.paper.objects.placeholders.PaperServerPlaceholders;
+import java.nio.file.Path;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.CachedServerIcon;
 
-import java.nio.file.Path;
+public class PaperCore extends JavaPlugin implements PluginCore<CachedServerIcon> {
 
-public class PaperCore extends JavaPlugin implements PluginCore<CachedServerIcon>{
-    
     private final PluginLogger logger = new PaperLogger(this);
-    
+
     private AdvancedServerList<CachedServerIcon> core;
     private FaviconHandler<CachedServerIcon> faviconHandler = null;
     private WorldCache worldCache = null;
-    
+
     @Override
-    public void onEnable(){
-        try{
+    public void onEnable() {
+        try {
             Class.forName("io.papermc.paper.configuration.ConfigurationLoaders");
-        }catch(ClassNotFoundException ignored){
-            try{
+        } catch (ClassNotFoundException ignored) {
+            try {
                 // Above class only exists since 1.19+. This is a fallback to see if an older version is used.
                 Class.forName("com.destroystokyo.paper.PaperConfig");
-            }catch(ClassNotFoundException ex){
+            } catch (ClassNotFoundException ex) {
                 printNoPaperWarning();
                 return;
             }
         }
-        
+
         this.core = AdvancedServerList.init(this, new PaperPlayerPlaceholders(), new PaperServerPlaceholders());
-        
     }
-    
+
     @Override
-    public void onDisable(){
-        
-        if(worldCache != null)
-            worldCache = null;
-        
+    public void onDisable() {
+
+        if (worldCache != null) worldCache = null;
+
         getCore().disable();
     }
-    
+
     @Override
-    public void loadCommands(){
-        if(getServer().getCommandMap().register("asl", new CmdAdvancedServerList(this))){
+    public void loadCommands() {
+        if (getServer().getCommandMap().register("asl", new CmdAdvancedServerList(this))) {
             getPluginLogger().info("Registered /advancedserverlist:advancedserverlist");
-        }else{
+        } else {
             getPluginLogger().info("Registered /asl:advancedserverlist");
         }
     }
-    
+
     @Override
-    public void loadEvents(){
+    public void loadEvents() {
         new LoadEvent(this);
     }
-    
+
     @Override
-    public void loadMetrics(){
-    }
-    
+    public void loadMetrics() {}
+
     @Override
-    public void clearFaviconCache(){
-        if(faviconHandler == null)
-            return;
-        
+    public void clearFaviconCache() {
+        if (faviconHandler == null) return;
+
         faviconHandler.clearCache();
     }
-    
+
     @Override
-    public AdvancedServerList<CachedServerIcon> getCore(){
+    public AdvancedServerList<CachedServerIcon> getCore() {
         return core;
     }
-    
+
     @Override
-    public Path getFolderPath(){
+    public Path getFolderPath() {
         return getDataFolder().toPath();
     }
-    
+
     @Override
-    public PluginLogger getPluginLogger(){
+    public PluginLogger getPluginLogger() {
         return logger;
     }
-    
+
     @Override
-    public FaviconHandler<CachedServerIcon> getFaviconHandler(){
-        if(faviconHandler == null)
-            faviconHandler = new FaviconHandler<>(core);
-        
+    public FaviconHandler<CachedServerIcon> getFaviconHandler() {
+        if (faviconHandler == null) faviconHandler = new FaviconHandler<>(core);
+
         return faviconHandler;
     }
-    
+
     @Override
-    public String getPlatformName(){
+    public String getPlatformName() {
         return getServer().getName();
     }
-    
+
     @Override
-    public String getPlatformVersion(){
+    public String getPlatformVersion() {
         return getServer().getVersion();
     }
-    
+
     @Override
-    public String getLoader(){
+    public String getLoader() {
         return "paper";
     }
-    
-    public WorldCache getWorldCache(){
-        if(worldCache != null)
-            return worldCache;
-        
+
+    public WorldCache getWorldCache() {
+        if (worldCache != null) return worldCache;
+
         return (worldCache = new WorldCache());
     }
-    
-    private void printNoPaperWarning(){
-        getPluginLogger().warn("======================================================================================");
+
+    private void printNoPaperWarning() {
+        getPluginLogger()
+                .warn("======================================================================================");
         getPluginLogger().warn("THIS SERVER DOES NOT USE PAPER OR A COMPATIBLE FORK!");
         getPluginLogger().warn("");
         getPluginLogger().warn("AdvancedServerList 3.6.0 has dropped support for Spigot-based servers.");
@@ -163,8 +157,9 @@ public class PaperCore extends JavaPlugin implements PluginCore<CachedServerIcon
         getPluginLogger().warn("");
         getPluginLogger().warn("Disabling AdvancedServerList. If you believe this is an error, report it on");
         getPluginLogger().warn("Codeberg: https://codeberg.org/Andre601/AdvancedServerList");
-        getPluginLogger().warn("======================================================================================");
-        
+        getPluginLogger()
+                .warn("======================================================================================");
+
         Bukkit.getPluginManager().disablePlugin(this);
     }
 }

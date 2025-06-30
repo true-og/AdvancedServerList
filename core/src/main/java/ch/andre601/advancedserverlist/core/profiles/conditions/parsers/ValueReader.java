@@ -27,10 +27,9 @@ package ch.andre601.advancedserverlist.core.profiles.conditions.parsers;
 
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.ExpressionTemplate;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.Token;
-
 import java.util.List;
 
-public abstract class ValueReader{
-    
+public abstract class ValueReader {
+
     public abstract ExpressionTemplate read(ExpressionTemplateParser parser, List<Token> tokenList);
 }

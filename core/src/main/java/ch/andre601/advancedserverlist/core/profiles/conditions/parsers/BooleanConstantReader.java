@@ -29,15 +29,14 @@ import ch.andre601.advancedserverlist.core.profiles.conditions.templates.Constan
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.ExpressionTemplate;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.BooleanToken;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.Token;
-
 import java.util.List;
 
-public class BooleanConstantReader extends ValueReader{
-    
+public class BooleanConstantReader extends ValueReader {
+
     @Override
-    public ExpressionTemplate read(ExpressionTemplateParser parser, List<Token> tokenList){
-        if(tokenList.get(0) instanceof BooleanToken){
-            return ConstantExpressionTemplate.of(((BooleanToken)tokenList.remove(0)).getValue());
+    public ExpressionTemplate read(ExpressionTemplateParser parser, List<Token> tokenList) {
+        if (tokenList.get(0) instanceof BooleanToken) {
+            return ConstantExpressionTemplate.of(((BooleanToken) tokenList.remove(0)).getValue());
         }
         return null;
     }

@@ -29,49 +29,51 @@ import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToBoo
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToDoubleExpression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToStringExpression;
 
-public class ConstantExpressionTemplate implements ExpressionTemplate{
-    
+public class ConstantExpressionTemplate implements ExpressionTemplate {
+
     private final ToStringExpression stringExpression;
     private final ToDoubleExpression doubleExpression;
     private final ToBooleanExpression booleanExpression;
-    
-    private ConstantExpressionTemplate(String stringValue, double doubleValue, boolean booleanValue){
+
+    private ConstantExpressionTemplate(String stringValue, double doubleValue, boolean booleanValue) {
         this.stringExpression = ToStringExpression.literal(stringValue);
         this.doubleExpression = ToDoubleExpression.literal(doubleValue);
         this.booleanExpression = ToBooleanExpression.literal(booleanValue);
     }
-    
-    public static ConstantExpressionTemplate of(String stringValue){
+
+    public static ConstantExpressionTemplate of(String stringValue) {
         double doubleValue;
-        try{
+        try {
             doubleValue = Double.parseDouble(stringValue);
-        }catch(NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             doubleValue = stringValue.length();
         }
         return new ConstantExpressionTemplate(stringValue, doubleValue, Boolean.parseBoolean(stringValue));
     }
-    
-    public static ConstantExpressionTemplate of(double doubleValue){
-        return new ConstantExpressionTemplate(((int)doubleValue) == doubleValue ? Integer.toString((int)doubleValue) : Double.toString(doubleValue), doubleValue, doubleValue != 0);
+
+    public static ConstantExpressionTemplate of(double doubleValue) {
+        return new ConstantExpressionTemplate(
+                ((int) doubleValue) == doubleValue ? Integer.toString((int) doubleValue) : Double.toString(doubleValue),
+                doubleValue,
+                doubleValue != 0);
     }
-    
-    public static ConstantExpressionTemplate of(boolean booleanValue){
+
+    public static ConstantExpressionTemplate of(boolean booleanValue) {
         return new ConstantExpressionTemplate(Boolean.toString(booleanValue), booleanValue ? 1 : 0, booleanValue);
     }
-    
-    
+
     @Override
-    public ToStringExpression instantiateWithStringResult(){
+    public ToStringExpression instantiateWithStringResult() {
         return stringExpression;
     }
-    
+
     @Override
-    public ToDoubleExpression instantiateWithDoubleResult(){
+    public ToDoubleExpression instantiateWithDoubleResult() {
         return doubleExpression;
     }
-    
+
     @Override
-    public ToBooleanExpression instantiateWithBooleanResult(){
+    public ToBooleanExpression instantiateWithBooleanResult() {
         return booleanExpression;
     }
 }

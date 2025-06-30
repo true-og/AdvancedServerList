@@ -25,16 +25,16 @@
 
 package ch.andre601.advancedserverlist.core.profiles.conditions.tokens;
 
-public class NumberToken extends Token{
-    
+public class NumberToken extends Token {
+
     private final double value;
-    
-    public NumberToken(double value){
+
+    public NumberToken(double value) {
         super("NUMBER(" + value + ")");
         this.value = value;
     }
-    
-    public double getValue(){
+
+    public double getValue() {
         return value;
     }
 }

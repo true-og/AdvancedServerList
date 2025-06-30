@@ -28,12 +28,12 @@ package ch.andre601.advancedserverlist.core.profiles.conditions.templates;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.Expression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToBooleanExpression;
 
-public abstract class AbstractBinaryToBooleanExpression<T extends Expression> implements ToBooleanExpression{
-    
+public abstract class AbstractBinaryToBooleanExpression<T extends Expression> implements ToBooleanExpression {
+
     protected final T a;
     protected final T b;
-    
-    public AbstractBinaryToBooleanExpression(T a, T b){
+
+    public AbstractBinaryToBooleanExpression(T a, T b) {
         this.a = a;
         this.b = b;
     }

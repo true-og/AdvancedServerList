@@ -30,18 +30,17 @@ import ch.andre601.advancedserverlist.api.objects.GenericPlayer;
 import ch.andre601.advancedserverlist.api.objects.GenericServer;
 import ch.andre601.advancedserverlist.paper.objects.impl.PaperPlayerImpl;
 
-public class PaperPlayerPlaceholders extends PlaceholderProvider{
-    
-    public PaperPlayerPlaceholders(){
+public class PaperPlayerPlaceholders extends PlaceholderProvider {
+
+    public PaperPlayerPlaceholders() {
         super("player");
     }
-    
+
     @Override
-    public String parsePlaceholder(String placeholder, GenericPlayer player, GenericServer server){
-        if(!(player instanceof PaperPlayerImpl paperPlayer))
-            return null;
-        
-        return switch(placeholder){
+    public String parsePlaceholder(String placeholder, GenericPlayer player, GenericServer server) {
+        if (!(player instanceof PaperPlayerImpl paperPlayer)) return null;
+
+        return switch (placeholder) {
             case "name" -> paperPlayer.getName();
             case "protocol" -> String.valueOf(paperPlayer.getProtocol());
             case "uuid" -> paperPlayer.getUUID().toString();

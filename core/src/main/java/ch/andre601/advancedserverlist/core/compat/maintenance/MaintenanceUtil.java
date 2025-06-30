@@ -28,15 +28,15 @@ package ch.andre601.advancedserverlist.core.compat.maintenance;
 import eu.kennytv.maintenance.api.Maintenance;
 import eu.kennytv.maintenance.api.MaintenanceProvider;
 
-public class MaintenanceUtil{
-    
+public class MaintenanceUtil {
+
     private final Maintenance api;
-    
-    public MaintenanceUtil(){
+
+    public MaintenanceUtil() {
         this.api = MaintenanceProvider.get();
     }
-    
-    public boolean isMaintenanceEnabled(){
+
+    public boolean isMaintenanceEnabled() {
         return api.isMaintenance();
     }
 }

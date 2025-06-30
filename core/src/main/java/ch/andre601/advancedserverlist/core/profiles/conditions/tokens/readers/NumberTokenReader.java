@@ -29,27 +29,25 @@ import ch.andre601.advancedserverlist.api.objects.GenericPlayer;
 import ch.andre601.advancedserverlist.api.objects.GenericServer;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.NumberToken;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.Token;
-
 import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.Locale;
 
-public class NumberTokenReader extends TokenReader{
-    
+public class NumberTokenReader extends TokenReader {
+
     private final NumberFormat format = NumberFormat.getInstance(Locale.ROOT);
-    
-    public NumberTokenReader(int priority){
+
+    public NumberTokenReader(int priority) {
         super(priority);
     }
-    
+
     @Override
-    public Token read(String text, ParsePosition position, GenericPlayer player, GenericServer server){
+    public Token read(String text, ParsePosition position, GenericPlayer player, GenericServer server) {
         int previous = position.getIndex();
         Number number = format.parse(text, position);
-        
-        if(position.getIndex() != previous)
-            return new NumberToken(number.doubleValue());
-        
+
+        if (position.getIndex() != previous) return new NumberToken(number.doubleValue());
+
         return null;
     }
 }

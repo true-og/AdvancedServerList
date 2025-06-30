@@ -25,24 +25,24 @@
 
 package ch.andre601.advancedserverlist.core.profiles.conditions.expressions;
 
-public interface ToDoubleExpression extends Expression{
-    
+public interface ToDoubleExpression extends Expression {
+
     double evaluate();
-    
-    static ToDoubleExpression literal(double value){
+
+    static ToDoubleExpression literal(double value) {
         return new ConstantToDoubleExpression(value);
     }
-    
-    class ConstantToDoubleExpression implements ToDoubleExpression{
-        
+
+    class ConstantToDoubleExpression implements ToDoubleExpression {
+
         private final double value;
-        
-        public ConstantToDoubleExpression(double value){
+
+        public ConstantToDoubleExpression(double value) {
             this.value = value;
         }
-        
+
         @Override
-        public double evaluate(){
+        public double evaluate() {
             return value;
         }
     }

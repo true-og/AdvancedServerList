@@ -26,29 +26,29 @@
 package ch.andre601.advancedserverlist.core.profiles.conditions.operators;
 
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.ExpressionTemplate;
-
 import java.util.function.BiFunction;
 
-public abstract class Operator{
-    
+public abstract class Operator {
+
     private final int priority;
-    
-    public Operator(int priority){
+
+    public Operator(int priority) {
         this.priority = priority;
     }
-    
-    public static Operator of(int priority, BiFunction<ExpressionTemplate, ExpressionTemplate, ExpressionTemplate> function){
-        return new Operator(priority){
+
+    public static Operator of(
+            int priority, BiFunction<ExpressionTemplate, ExpressionTemplate, ExpressionTemplate> function) {
+        return new Operator(priority) {
             @Override
-            public ExpressionTemplate createTemplate(ExpressionTemplate a, ExpressionTemplate b){
+            public ExpressionTemplate createTemplate(ExpressionTemplate a, ExpressionTemplate b) {
                 return function.apply(a, b);
             }
         };
     }
-    
-    public int getPriority(){
+
+    public int getPriority() {
         return priority;
     }
-    
+
     public abstract ExpressionTemplate createTemplate(ExpressionTemplate a, ExpressionTemplate b);
 }

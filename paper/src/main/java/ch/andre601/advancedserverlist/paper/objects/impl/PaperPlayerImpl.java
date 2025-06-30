@@ -30,45 +30,44 @@ import ch.andre601.advancedserverlist.core.objects.CachedPlayer;
 import ch.andre601.advancedserverlist.core.profiles.players.GenericPlayerImpl;
 import org.bukkit.OfflinePlayer;
 
-public class PaperPlayerImpl extends GenericPlayerImpl implements BukkitPlayer{
-    
+public class PaperPlayerImpl extends GenericPlayerImpl implements BukkitPlayer {
+
     private final OfflinePlayer player;
     private boolean playedBefore = false;
     private boolean banned = false;
     private boolean whitelisted = false;
-    
-    public PaperPlayerImpl(OfflinePlayer player, CachedPlayer cachedPlayer, int protocol){
+
+    public PaperPlayerImpl(OfflinePlayer player, CachedPlayer cachedPlayer, int protocol) {
         this.player = player;
-        
+
         this.name = player == null ? cachedPlayer.getName() : player.getName();
         this.protocol = protocol;
         this.uuid = player == null ? cachedPlayer.getUuid() : player.getUniqueId();
-        
-        if(player == null)
-            return;
-        
+
+        if (player == null) return;
+
         this.playedBefore = player.hasPlayedBefore();
         this.banned = player.isBanned();
         this.whitelisted = player.isWhitelisted();
     }
-    
+
     @Override
-    public OfflinePlayer getPlayer(){
+    public OfflinePlayer getPlayer() {
         return player;
     }
-    
+
     @Override
-    public boolean hasPlayedBefore(){
+    public boolean hasPlayedBefore() {
         return playedBefore;
     }
-    
+
     @Override
-    public boolean isBanned(){
+    public boolean isBanned() {
         return banned;
     }
-    
+
     @Override
-    public boolean isWhitelisted(){
+    public boolean isWhitelisted() {
         return whitelisted;
     }
 }

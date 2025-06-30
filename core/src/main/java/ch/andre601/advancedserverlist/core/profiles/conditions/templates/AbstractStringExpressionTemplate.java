@@ -29,15 +29,15 @@ import ch.andre601.advancedserverlist.core.profiles.conditions.Conversions;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToBooleanExpression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToDoubleExpression;
 
-public abstract class AbstractStringExpressionTemplate implements ExpressionTemplate{
-    
+public abstract class AbstractStringExpressionTemplate implements ExpressionTemplate {
+
     @Override
-    public ToDoubleExpression instantiateWithDoubleResult(){
+    public ToDoubleExpression instantiateWithDoubleResult() {
         return Conversions.toDouble(instantiateWithStringResult());
     }
-    
+
     @Override
-    public ToBooleanExpression instantiateWithBooleanResult(){
+    public ToBooleanExpression instantiateWithBooleanResult() {
         return Conversions.toBoolean(instantiateWithStringResult());
     }
 }

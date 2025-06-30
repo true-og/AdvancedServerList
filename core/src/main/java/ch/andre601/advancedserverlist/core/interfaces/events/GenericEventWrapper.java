@@ -25,63 +25,62 @@
 
 package ch.andre601.advancedserverlist.core.interfaces.events;
 
+import ch.andre601.advancedserverlist.api.events.GenericServerListEvent;
 import ch.andre601.advancedserverlist.api.objects.GenericPlayer;
 import ch.andre601.advancedserverlist.api.objects.GenericServer;
 import ch.andre601.advancedserverlist.api.profiles.ProfileEntry;
-import ch.andre601.advancedserverlist.api.events.GenericServerListEvent;
 import ch.andre601.advancedserverlist.core.interfaces.core.PluginCore;
 import ch.andre601.advancedserverlist.core.objects.CachedPlayer;
-import net.kyori.adventure.text.Component;
-
 import java.awt.image.BufferedImage;
 import java.net.InetSocketAddress;
 import java.util.List;
+import net.kyori.adventure.text.Component;
 
-public interface GenericEventWrapper<F, P extends GenericPlayer>{
-    
+public interface GenericEventWrapper<F, P extends GenericPlayer> {
+
     GenericServerListEvent callEvent(ProfileEntry entry);
-    
+
     void setMaxPlayers(int maxPlayers);
-    
+
     void setMotd(Component component);
-    
+
     void hidePlayers();
-    
+
     void setPlayerCount(String name);
-    
+
     void setPlayers(List<String> players, P player, GenericServer server);
-    
+
     void setFavicon(F favicon);
-    
+
     void setDefaultFavicon();
-    
+
     void updateEvent();
-    
+
     boolean isInvalidProtocol();
-    
+
     boolean isMaintenanceModeActive();
-    
+
     int getProtocolVersion();
-    
+
     int getOnlinePlayers();
-    
+
     int getMaxPlayers();
-    
+
     String getPlayerIP();
-    
+
     String parsePAPIPlaceholders(String text, P player);
-    
+
     String getVirtualHost();
-    
+
     PluginCore<F> getPlugin();
-    
+
     P createPlayer(CachedPlayer player, int protocol);
-    
+
     GenericServer createGenericServer(int playersOnline, int playersMax, String host);
-    
+
     F createFavicon(BufferedImage image) throws Exception;
-    
-    default String resolveHost(InetSocketAddress address){
+
+    default String resolveHost(InetSocketAddress address) {
         return address == null ? null : address.getHostString();
     }
 }

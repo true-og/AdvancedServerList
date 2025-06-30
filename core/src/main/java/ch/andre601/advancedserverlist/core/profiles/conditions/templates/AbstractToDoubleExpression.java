@@ -27,14 +27,13 @@ package ch.andre601.advancedserverlist.core.profiles.conditions.templates;
 
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.Expression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToDoubleExpression;
-
 import java.util.Collection;
 
-public abstract class AbstractToDoubleExpression<T extends Expression> implements ToDoubleExpression{
-    
+public abstract class AbstractToDoubleExpression<T extends Expression> implements ToDoubleExpression {
+
     protected final Collection<T> operands;
-    
-    public AbstractToDoubleExpression(Collection<T> operands){
+
+    public AbstractToDoubleExpression(Collection<T> operands) {
         this.operands = operands;
     }
 }

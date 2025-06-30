@@ -25,4 +25,4 @@
 
 package ch.andre601.advancedserverlist.core.profiles.conditions.expressions;
 
-public interface Expression{}
+public interface Expression {}

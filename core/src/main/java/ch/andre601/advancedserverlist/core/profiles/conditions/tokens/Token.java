@@ -25,16 +25,16 @@
 
 package ch.andre601.advancedserverlist.core.profiles.conditions.tokens;
 
-public class Token{
-    
+public class Token {
+
     private final String id;
-    
-    public Token(String id){
+
+    public Token(String id) {
         this.id = id;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return id;
     }
 }

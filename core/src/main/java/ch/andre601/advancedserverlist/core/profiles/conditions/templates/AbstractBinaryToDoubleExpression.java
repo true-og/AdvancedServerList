@@ -28,12 +28,12 @@ package ch.andre601.advancedserverlist.core.profiles.conditions.templates;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.Expression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToDoubleExpression;
 
-public abstract class AbstractBinaryToDoubleExpression<T extends Expression> implements ToDoubleExpression{
-    
+public abstract class AbstractBinaryToDoubleExpression<T extends Expression> implements ToDoubleExpression {
+
     protected final T a;
     protected final T b;
-    
-    public AbstractBinaryToDoubleExpression(T a, T b){
+
+    public AbstractBinaryToDoubleExpression(T a, T b) {
         this.a = a;
         this.b = b;
     }

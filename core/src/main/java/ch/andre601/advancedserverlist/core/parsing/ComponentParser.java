@@ -25,48 +25,47 @@
 
 package ch.andre601.advancedserverlist.core.parsing;
 
+import java.util.List;
+import java.util.function.Function;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
-import java.util.List;
-import java.util.function.Function;
+public class ComponentParser {
 
-public class ComponentParser{
-    
     private static final MiniMessage mm;
     private static final LegacyComponentSerializer legacy;
-    
+
     static {
         mm = MiniMessage.miniMessage();
         legacy = LegacyComponentSerializer.legacySection();
     }
-    
+
     private String text;
-    
-    private ComponentParser(String text){
+
+    private ComponentParser(String text) {
         this.text = text;
     }
-    
-    public static ComponentParser text(String text){
+
+    public static ComponentParser text(String text) {
         return new ComponentParser(text);
     }
-    
-    public static ComponentParser list(List<String> lines){
+
+    public static ComponentParser list(List<String> lines) {
         return new ComponentParser(String.join("\n", lines));
     }
-    
-    public ComponentParser modifyText(Function<String, String> function){
+
+    public ComponentParser modifyText(Function<String, String> function) {
         this.text = function.apply(text);
         return this;
     }
-    
-    public Component toComponent(){
+
+    public Component toComponent() {
         return mm.deserialize(text);
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return legacy.serialize(toComponent());
     }
 }

@@ -25,24 +25,24 @@
 
 package ch.andre601.advancedserverlist.core.interfaces.commands;
 
-public interface CmdSender{
-    
+public interface CmdSender {
+
     String prefix = "<grey>[<gradient:aqua:white>AdvancedServerList</gradient>] ";
     String errorPrefix = "<grey>[<gradient:dark_red:red>AdvancedServerList</gradient>] ";
-    
+
     boolean hasPermission(String permission);
-    
+
     void sendMsg(String msg, Object... args);
-    
-    default void sendMsg(){
+
+    default void sendMsg() {
         sendMsg("");
     }
-    
-    default void sendPrefixedMsg(String msg, Object... args){
+
+    default void sendPrefixedMsg(String msg, Object... args) {
         sendMsg(prefix + msg, args);
     }
-    
-    default void sendErrorMsg(String msg, Object... args){
+
+    default void sendErrorMsg(String msg, Object... args) {
         sendMsg(errorPrefix + msg, args);
     }
 }

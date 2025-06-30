@@ -25,37 +25,41 @@
 
 package ch.andre601.advancedserverlist.core.profiles.profile;
 
+import ch.andre601.advancedserverlist.api.profiles.ProfileEntry;
+import java.lang.reflect.Type;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.serialize.SerializationException;
 import org.spongepowered.configurate.serialize.TypeSerializer;
-import ch.andre601.advancedserverlist.api.profiles.ProfileEntry;
 
-import java.lang.reflect.Type;
-
-public class ProfileSerializer implements TypeSerializer<ProfileEntry>{
+public class ProfileSerializer implements TypeSerializer<ProfileEntry> {
     public static final ProfileSerializer INSTANCE = new ProfileSerializer();
-    
+
     @Override
-    public ProfileEntry deserialize(Type type, ConfigurationNode node){
+    public ProfileEntry deserialize(Type type, ConfigurationNode node) {
         return ProfileManager.retrieveProfileEntry(node);
     }
-    
+
     @Override
-    public void serialize(Type type, @Nullable ProfileEntry profile, ConfigurationNode node) throws SerializationException{
-        if(profile == null){
+    public void serialize(Type type, @Nullable ProfileEntry profile, ConfigurationNode node)
+            throws SerializationException {
+        if (profile == null) {
             node.raw(null);
             return;
         }
-        
+
         node.node("motd").set(profile.motd());
         node.node("playerCount", "hover").set(profile.players());
         node.node("playerCount", "text").set(profile.playerCountText());
         node.node("favicon").set(profile.favicon());
         node.node("playerCount", "hidePlayers").set(profile.hidePlayersEnabled().getOrDefault(false));
-        node.node("playerCount", "extraPlayers", "enabled").set(profile.extraPlayersEnabled().getOrDefault(false));
-        node.node("playerCount", "extraPlayers", "amount").set((profile.extraPlayersCount() == null) ? 0 : profile.extraPlayersCount());
-        node.node("playerCount", "maxPlayers", "enabled").set(profile.maxPlayersEnabled().getOrDefault(false));
-        node.node("playerCount", "maxPlayers", "amount").set((profile.maxPlayersCount() == null) ? 0 : profile.maxPlayersCount());
+        node.node("playerCount", "extraPlayers", "enabled")
+                .set(profile.extraPlayersEnabled().getOrDefault(false));
+        node.node("playerCount", "extraPlayers", "amount")
+                .set((profile.extraPlayersCount() == null) ? 0 : profile.extraPlayersCount());
+        node.node("playerCount", "maxPlayers", "enabled")
+                .set(profile.maxPlayersEnabled().getOrDefault(false));
+        node.node("playerCount", "maxPlayers", "amount")
+                .set((profile.maxPlayersCount() == null) ? 0 : profile.maxPlayersCount());
     }
 }

@@ -27,49 +27,46 @@ package ch.andre601.advancedserverlist.paper.logging;
 
 import ch.andre601.advancedserverlist.core.interfaces.PluginLogger;
 import ch.andre601.advancedserverlist.paper.PaperCore;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PaperLogger implements PluginLogger{
-    
+public class PaperLogger implements PluginLogger {
+
     private final PaperCore plugin;
     private final Logger logger;
-    
-    public PaperLogger(PaperCore plugin){
+
+    public PaperLogger(PaperCore plugin) {
         this.plugin = plugin;
         this.logger = plugin.getLogger();
     }
-    
+
     @Override
-    public void debug(Class<?> clazz, String msg, Object... args){
-        if(plugin.isDebugEnabled())
-            info("[DEBUG] [" + clazz.getSimpleName() + "] " + msg, args);
+    public void debug(Class<?> clazz, String msg, Object... args) {
+        if (plugin.isDebugEnabled()) info("[DEBUG] [" + clazz.getSimpleName() + "] " + msg, args);
     }
-    
+
     @Override
-    public void debugWarn(Class<?> clazz, String msg, Object... args){
-        if(plugin.isDebugEnabled())
-            warn("[DEBUG] [" + clazz.getSimpleName() + "] " + msg, args);
+    public void debugWarn(Class<?> clazz, String msg, Object... args) {
+        if (plugin.isDebugEnabled()) warn("[DEBUG] [" + clazz.getSimpleName() + "] " + msg, args);
     }
-    
+
     @Override
-    public void info(String msg, Object... args){
+    public void info(String msg, Object... args) {
         logger.info(String.format(msg, args));
     }
-    
+
     @Override
-    public void warn(String msg, Object... args){
+    public void warn(String msg, Object... args) {
         logger.warning(String.format(msg, args));
     }
-    
+
     @Override
-    public void warn(String msg, Throwable throwable){
+    public void warn(String msg, Throwable throwable) {
         logger.log(Level.WARNING, msg, throwable);
     }
-    
+
     @Override
-    public void warn(String msg, Throwable throwable, Object... args){
+    public void warn(String msg, Throwable throwable, Object... args) {
         logger.log(Level.WARNING, String.format(msg, args), throwable);
     }
 }

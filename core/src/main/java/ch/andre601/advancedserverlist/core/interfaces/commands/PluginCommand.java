@@ -27,21 +27,21 @@ package ch.andre601.advancedserverlist.core.interfaces.commands;
 
 import java.util.Locale;
 
-public abstract class PluginCommand{
-    
+public abstract class PluginCommand {
+
     private final String argument;
-    
-    public PluginCommand(String argument){
+
+    public PluginCommand(String argument) {
         this.argument = argument;
     }
-    
-    public String getArgument(){
+
+    public String getArgument() {
         return argument;
     }
-    
-    public String getPermission(){
+
+    public String getPermission() {
         return "advancedserverlist.command." + getArgument().toLowerCase(Locale.ROOT);
     }
-    
+
     public abstract void handle(CmdSender sender);
 }

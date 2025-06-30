@@ -27,14 +27,13 @@ package ch.andre601.advancedserverlist.core.profiles.conditions.templates;
 
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.Expression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToBooleanExpression;
-
 import java.util.Collection;
 
-public abstract class AbstractToBooleanExpression<T extends Expression> implements ToBooleanExpression{
-    
+public abstract class AbstractToBooleanExpression<T extends Expression> implements ToBooleanExpression {
+
     protected final Collection<T> operands;
-    
-    public AbstractToBooleanExpression(Collection<T> operands){
+
+    public AbstractToBooleanExpression(Collection<T> operands) {
         this.operands = operands;
     }
 }

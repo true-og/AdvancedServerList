@@ -31,17 +31,17 @@ import com.destroystokyo.paper.event.server.PaperServerListPingEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class PingEvent implements Listener{
-    
+public class PingEvent implements Listener {
+
     private final PaperCore plugin;
-    
-    public PingEvent(PaperCore plugin){
+
+    public PingEvent(PaperCore plugin) {
         this.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
-    
+
     @EventHandler
-    public void onPaperServerListPing(PaperServerListPingEvent event){
+    public void onPaperServerListPing(PaperServerListPingEvent event) {
         PingEventHandler.handleEvent(new PaperEventWrapper(plugin, event));
     }
 }

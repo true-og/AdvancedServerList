@@ -27,16 +27,16 @@ package ch.andre601.advancedserverlist.core.profiles.conditions.tokens;
 
 import ch.andre601.advancedserverlist.core.profiles.conditions.placeholders.Placeholder;
 
-public class PlaceholderToken extends Token{
-    
+public class PlaceholderToken extends Token {
+
     private final Placeholder value;
-    
-    public PlaceholderToken(Placeholder value){
+
+    public PlaceholderToken(Placeholder value) {
         super("PLACEHOLDER");
         this.value = value;
     }
-    
-    public Placeholder getValue(){
+
+    public Placeholder getValue() {
         return value;
     }
 }

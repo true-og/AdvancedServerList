@@ -28,24 +28,23 @@ package ch.andre601.advancedserverlist.core.profiles.conditions.parsers;
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.ExpressionTemplate;
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.ExpressionTemplates;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.Token;
-
 import java.util.List;
 
-public class NegatedNumberReader extends ValueReader{
-    
+public class NegatedNumberReader extends ValueReader {
+
     private final Token tokenNegation;
-    
-    public NegatedNumberReader(Token tokenNegation){
+
+    public NegatedNumberReader(Token tokenNegation) {
         this.tokenNegation = tokenNegation;
     }
-    
+
     @Override
-    public ExpressionTemplate read(ExpressionTemplateParser parser, List<Token> tokenList){
-        if(tokenList.get(0) == tokenNegation){
+    public ExpressionTemplate read(ExpressionTemplateParser parser, List<Token> tokenList) {
+        if (tokenList.get(0) == tokenNegation) {
             tokenList.remove(0);
             return ExpressionTemplates.negateNumber(parser.read(tokenList));
         }
-        
+
         return null;
     }
 }

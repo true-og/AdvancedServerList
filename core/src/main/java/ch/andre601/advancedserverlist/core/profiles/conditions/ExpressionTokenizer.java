@@ -31,48 +31,47 @@ import ch.andre601.advancedserverlist.core.interfaces.PluginLogger;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.Token;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.readers.TokenReader;
 import com.google.common.collect.Ordering;
-
 import java.text.ParsePosition;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ExpressionTokenizer{
-    
-    private static final Ordering<TokenReader> TOKEN_READER_ORDERING = Ordering.from(Comparator.comparingInt(TokenReader::getPriority)).reverse();
-    
+public class ExpressionTokenizer {
+
+    private static final Ordering<TokenReader> TOKEN_READER_ORDERING =
+            Ordering.from(Comparator.comparingInt(TokenReader::getPriority)).reverse();
+
     private final List<TokenReader> tokenReaders;
-    
-    public ExpressionTokenizer(Iterable<TokenReader> tokenReaders){
+
+    public ExpressionTokenizer(Iterable<TokenReader> tokenReaders) {
         this.tokenReaders = TOKEN_READER_ORDERING.immutableSortedCopy(tokenReaders);
     }
-    
-    public List<Token> parse(String text, PluginLogger logger, GenericPlayer player, GenericServer server){
+
+    public List<Token> parse(String text, PluginLogger logger, GenericPlayer player, GenericServer server) {
         ParsePosition position = new ParsePosition(0);
-        
+
         List<Token> tokens = new LinkedList<>();
-        
+
         next_token:
-        while(true){
-            while(position.getIndex() < text.length() && Character.isWhitespace(text.charAt(position.getIndex()))){
+        while (true) {
+            while (position.getIndex() < text.length() && Character.isWhitespace(text.charAt(position.getIndex()))) {
                 position.setIndex(position.getIndex() + 1);
             }
-            
-            if(position.getIndex() >= text.length())
-                break;
-            
-            for(TokenReader tokenReader : tokenReaders){
+
+            if (position.getIndex() >= text.length()) break;
+
+            for (TokenReader tokenReader : tokenReaders) {
                 Token token;
-                if(null != (token = tokenReader.read(text, position, player, server))){
+                if (null != (token = tokenReader.read(text, position, player, server))) {
                     tokens.add(token);
                     continue next_token;
                 }
             }
-            
+
             logger.warn("Illegal token '%c' at index %d.", text.charAt(position.getIndex()), position.getIndex());
             break;
         }
-        
+
         return tokens;
     }
 }

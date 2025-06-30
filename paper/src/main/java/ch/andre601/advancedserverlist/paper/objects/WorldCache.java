@@ -25,26 +25,25 @@
 
 package ch.andre601.advancedserverlist.paper.objects;
 
-import org.bukkit.World;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.bukkit.World;
 
-public record WorldCache(Map<String, World> worlds){
-    
-    public WorldCache(){
+public record WorldCache(Map<String, World> worlds) {
+
+    public WorldCache() {
         this(new HashMap<>());
     }
-    
-    public boolean containsWorld(String name){
+
+    public boolean containsWorld(String name) {
         return this.worlds.containsKey(name);
     }
-    
-    public void addWorld(World world){
+
+    public void addWorld(World world) {
         this.worlds.put(world.getName(), world);
     }
-    
-    public void removeWorld(String name){
+
+    public void removeWorld(String name) {
         this.worlds.remove(name);
     }
 }

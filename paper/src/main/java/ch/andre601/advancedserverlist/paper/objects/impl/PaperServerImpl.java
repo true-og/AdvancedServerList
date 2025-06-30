@@ -26,28 +26,28 @@
 package ch.andre601.advancedserverlist.paper.objects.impl;
 
 import ch.andre601.advancedserverlist.api.bukkit.objects.BukkitServer;
+import java.util.Map;
 import org.bukkit.World;
 
-import java.util.Map;
-
-public record PaperServerImpl(Map<String, World> worlds, int playersOnline, int playersMax, String host) implements BukkitServer {
+public record PaperServerImpl(Map<String, World> worlds, int playersOnline, int playersMax, String host)
+        implements BukkitServer {
     @Override
-    public Map<String, World> getWorlds(){
+    public Map<String, World> getWorlds() {
         return worlds;
     }
-    
+
     @Override
-    public int getPlayersOnline(){
+    public int getPlayersOnline() {
         return playersOnline;
     }
-    
+
     @Override
-    public int getPlayersMax(){
+    public int getPlayersMax() {
         return playersMax;
     }
-    
+
     @Override
-    public String getHost(){
+    public String getHost() {
         return host;
     }
 }

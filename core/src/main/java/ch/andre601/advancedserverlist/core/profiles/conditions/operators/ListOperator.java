@@ -26,31 +26,30 @@
 package ch.andre601.advancedserverlist.core.profiles.conditions.operators;
 
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.ExpressionTemplate;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
-public abstract class ListOperator extends Operator{
-    
-    public ListOperator(int priority){
+public abstract class ListOperator extends Operator {
+
+    public ListOperator(int priority) {
         super(priority);
     }
-    
-    public static ListOperator of(int priority, Function<Collection<ExpressionTemplate>, ExpressionTemplate> function){
-        return new ListOperator(priority){
+
+    public static ListOperator of(int priority, Function<Collection<ExpressionTemplate>, ExpressionTemplate> function) {
+        return new ListOperator(priority) {
             @Override
-            public ExpressionTemplate createTemplate(List<ExpressionTemplate> operands){
+            public ExpressionTemplate createTemplate(List<ExpressionTemplate> operands) {
                 return function.apply(operands);
             }
         };
     }
-    
+
     @Override
-    public ExpressionTemplate createTemplate(ExpressionTemplate a, ExpressionTemplate b){
+    public ExpressionTemplate createTemplate(ExpressionTemplate a, ExpressionTemplate b) {
         return createTemplate(Arrays.asList(a, b));
     }
-    
+
     public abstract ExpressionTemplate createTemplate(List<ExpressionTemplate> operands);
 }

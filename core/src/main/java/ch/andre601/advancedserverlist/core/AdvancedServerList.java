@@ -33,7 +33,6 @@ import ch.andre601.advancedserverlist.core.file.FileHandler;
 import ch.andre601.advancedserverlist.core.interfaces.core.PluginCore;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ExpressionEngine;
 import ch.andre601.advancedserverlist.core.profiles.players.PlayerHandler;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -41,139 +40,144 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-public class AdvancedServerList<F>{
-    
+public class AdvancedServerList<F> {
+
     private final PluginCore<F> plugin;
     private final FileHandler fileHandler;
     private final CommandHandler commandHandler;
     private final PlayerHandler playerHandler;
     private final AdvancedServerListAPI api = AdvancedServerListAPI.get();
     private final ExpressionEngine expressionEngine = new ExpressionEngine();
-    
+
     private UpdateChecker updateChecker;
-    
+
     private String version;
-    
-    private AdvancedServerList(PluginCore<F> plugin, List<PlaceholderProvider> placeholders){
+
+    private AdvancedServerList(PluginCore<F> plugin, List<PlaceholderProvider> placeholders) {
         this.plugin = plugin;
         this.fileHandler = new FileHandler(this);
         this.commandHandler = new CommandHandler(this);
         this.playerHandler = new PlayerHandler(this);
-        
+
         placeholders.forEach(this.api::addPlaceholderProvider);
-        
+
         load();
     }
-    
-    public static <F> AdvancedServerList<F> init(PluginCore<F> plugin, PlaceholderProvider... placeholders){
+
+    public static <F> AdvancedServerList<F> init(PluginCore<F> plugin, PlaceholderProvider... placeholders) {
         return new AdvancedServerList<>(plugin, Arrays.asList(placeholders));
     }
-    
-    public PluginCore<F> getPlugin(){
+
+    public PluginCore<F> getPlugin() {
         return plugin;
     }
-    
-    public FileHandler getFileHandler(){
+
+    public FileHandler getFileHandler() {
         return fileHandler;
     }
-    
-    public CommandHandler getCommandHandler(){
+
+    public CommandHandler getCommandHandler() {
         return commandHandler;
     }
-    
-    public PlayerHandler getPlayerHandler(){
+
+    public PlayerHandler getPlayerHandler() {
         return playerHandler;
     }
-    
-    public String getVersion(){
+
+    public String getVersion() {
         return version;
     }
-    
-    public AdvancedServerListAPI getApi(){
+
+    public AdvancedServerListAPI getApi() {
         return api;
     }
-    
-    public ExpressionEngine getExpressionEngine(){
+
+    public ExpressionEngine getExpressionEngine() {
         return expressionEngine;
     }
-    
-    public void disable(){
+
+    public void disable() {
         getPlugin().getPluginLogger().info("Saving playercache.json file...");
         getPlayerHandler().save();
-        
-        if(updateChecker != null){
+
+        if (updateChecker != null) {
             getPlugin().getPluginLogger().info("Disabling Update Checker...");
             updateChecker.disable();
         }
-        
+
         getPlugin().getPluginLogger().info("AdvancedServerList disabled!");
     }
-    
-    public void clearFaviconCache(){
+
+    public void clearFaviconCache() {
         plugin.clearFaviconCache();
     }
-    
-    public void clearPlayerCache(){
+
+    public void clearPlayerCache() {
         getPlayerHandler().clearCache();
     }
-    
-    private void load(){
+
+    private void load() {
         printBanner();
         resolveVersion();
-    
+
         getPlugin().getPluginLogger().info("Starting AdvancedServerList v%s...", version);
         getPlugin().getPluginLogger().info("Platform: " + plugin.getPlatformName() + " " + plugin.getPlatformVersion());
-        
-        if(getFileHandler().loadConfig()){
+
+        if (getFileHandler().loadConfig()) {
             getPlugin().getPluginLogger().info("Successfully loaded config.yml!");
-        }else{
+        } else {
             getPlugin().getPluginLogger().warn("Unable to load config.yml! Check previous lines for errors.");
             return;
         }
-        
-        if(getFileHandler().isOldConfig()){
+
+        if (getFileHandler().isOldConfig()) {
             getPlugin().getPluginLogger().info("Detected old config.yml. Attempting to migrate...");
-            if(getFileHandler().migrateConfig()){
+            if (getFileHandler().migrateConfig()) {
                 getPlugin().getPluginLogger().info("Migration completed successfully!");
-            }else{
+            } else {
                 getPlugin().getPluginLogger().warn("Couldn't migrate config.yml! Check previous lines for errors.");
                 return;
             }
         }
-        
-        if(getFileHandler().loadProfiles()){
-            getPlugin().getPluginLogger().info("Successfully loaded %d profile(s)!", getFileHandler().getProfiles().size());
-        }else{
+
+        if (getFileHandler().loadProfiles()) {
+            getPlugin()
+                    .getPluginLogger()
+                    .info(
+                            "Successfully loaded %d profile(s)!",
+                            getFileHandler().getProfiles().size());
+        } else {
             getPlugin().getPluginLogger().warn("Unable to load profiles! Check previous lines for errors.");
             return;
         }
-        
+
         Path folder = getPlugin().getFolderPath().resolve("favicons");
-        if(!folder.toFile().exists() && folder.toFile().mkdirs())
+        if (!folder.toFile().exists() && folder.toFile().mkdirs())
             getPlugin().getPluginLogger().info("Successfully created favicons folder.");
-    
+
         getPlugin().getPluginLogger().info("Loading Commands...");
         plugin.loadCommands();
         getPlugin().getPluginLogger().info("Commands loaded!");
-    
+
         getPlugin().getPluginLogger().info("Loading events...");
         plugin.loadEvents();
         getPlugin().getPluginLogger().info("Events loaded!");
-    
+
         getPlugin().getPluginLogger().info("Loading playercache.json...");
         getPlayerHandler().load();
-    
-        getPlugin().getPluginLogger().info("Loading bStats metrics. Disable it in the global config under /plugins/bstats/");
+
+        getPlugin()
+                .getPluginLogger()
+                .info("Loading bStats metrics. Disable it in the global config under /plugins/bstats/");
         plugin.loadMetrics();
         getPlugin().getPluginLogger().info("Metrics loaded!");
-    
+
         getPlugin().getPluginLogger().info("AdvancedServerList is ready!");
-        
-        if(getFileHandler().getBoolean("checkUpdates"))
-            this.updateChecker = new UpdateChecker(this);
+
+        if (getFileHandler().getBoolean("checkUpdates")) this.updateChecker = new UpdateChecker(this);
     }
-    
-    private void printBanner(){
+
+    private void printBanner() {
         getPlugin().getPluginLogger().info("           _____ _");
         getPlugin().getPluginLogger().info("    /\\    / ____| |");
         getPlugin().getPluginLogger().info("   /  \\  | (___ | |");
@@ -182,15 +186,15 @@ public class AdvancedServerList<F>{
         getPlugin().getPluginLogger().info("/_/    \\_\\_____/|______|");
         getPlugin().getPluginLogger().info("");
     }
-    
-    private void resolveVersion(){
-        try(InputStream is = getClass().getResourceAsStream("/version.properties")){
+
+    private void resolveVersion() {
+        try (InputStream is = getClass().getResourceAsStream("/version.properties")) {
             Properties properties = new Properties();
-            
+
             properties.load(is);
-            
+
             version = properties.getProperty("version");
-        }catch(IOException ex){
+        } catch (IOException ex) {
             version = "UNKNOWN";
         }
     }

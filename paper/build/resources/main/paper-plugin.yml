@@ -1,0 +1,53 @@
+name: 'AdvancedServerList'
+author: 'Andre_601'
+version: '${plugin.version}'
+description: '${plugin.description}'
+
+main: 'ch.andre601.advancedserverlist.paper.PaperCore'
+
+api-version: '1.19'
+
+folia-supported: true
+
+dependencies:
+  server:
+    ViaVersion:
+      load: BEFORE
+      required: false
+    Maintenance:
+      load: BEFORE
+      required: false
+
+# The below stuff is NOT used by Paper plugin.
+commands:
+  advancedserverlist:
+    description: 'Main command of AdvancedServerList'
+    usage: '/<command> [help|reload]'
+    aliases:
+      - 'asl'
+    permission: 'advancedserverlist.admin'
+
+# This is actually supported(?)
+permissions:
+  advancedserverlist.*:
+    description: 'Grants access to all permissions'
+    default: op
+    children:
+      - 'advancedserverlist.admin'
+  advancedserverlist.admin:
+    description: 'Grants access to all permissions'
+    default: op
+    children:
+      - 'advancedserverlist.command.*'
+  advancedserverlist.command.*:
+    description: 'Grants access to all commands'
+    default: op
+    children:
+      - 'advancedserverlist.command.help'
+      - 'advancedserverlist.command.reload'
+  advancedserverlist.command.help:
+    description: 'Grants access to /asl help'
+    default: op
+  advancedserverlist.command.reload:
+    description: 'Grants access to /asl reload'
+    default: op

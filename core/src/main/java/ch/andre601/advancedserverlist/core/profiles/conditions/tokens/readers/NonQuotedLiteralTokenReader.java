@@ -29,25 +29,24 @@ import ch.andre601.advancedserverlist.api.objects.GenericPlayer;
 import ch.andre601.advancedserverlist.api.objects.GenericServer;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.StringToken;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.Token;
-
 import java.text.ParsePosition;
 
-public class NonQuotedLiteralTokenReader extends TokenReader{
-    
-    public NonQuotedLiteralTokenReader(int priority){
+public class NonQuotedLiteralTokenReader extends TokenReader {
+
+    public NonQuotedLiteralTokenReader(int priority) {
         super(priority);
     }
-    
+
     @Override
-    public Token read(String text, ParsePosition position, GenericPlayer player, GenericServer server){
+    public Token read(String text, ParsePosition position, GenericPlayer player, GenericServer server) {
         int startIndex = position.getIndex();
         int index = position.getIndex();
-        
-        while(++index < text.length() && !Character.isWhitespace(text.charAt(index)))
+
+        while (++index < text.length() && !Character.isWhitespace(text.charAt(index)))
             ;
-        
+
         position.setIndex(index);
-        
+
         return new StringToken(text.substring(startIndex, position.getIndex()));
     }
 }

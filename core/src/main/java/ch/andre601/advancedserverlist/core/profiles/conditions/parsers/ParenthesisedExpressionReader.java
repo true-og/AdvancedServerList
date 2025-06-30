@@ -27,45 +27,42 @@ package ch.andre601.advancedserverlist.core.profiles.conditions.parsers;
 
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.ExpressionTemplate;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.Token;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParenthesisedExpressionReader extends ValueReader{
-    
+public class ParenthesisedExpressionReader extends ValueReader {
+
     private final Token openingParenthesis;
     private final Token closingParenthesis;
-    
-    public ParenthesisedExpressionReader(Token openingParenthesis, Token closingParenthesis){
+
+    public ParenthesisedExpressionReader(Token openingParenthesis, Token closingParenthesis) {
         this.openingParenthesis = openingParenthesis;
         this.closingParenthesis = closingParenthesis;
     }
-    
+
     @Override
-    public ExpressionTemplate read(ExpressionTemplateParser parser, List<Token> tokenList){
-        if(tokenList.get(0) == openingParenthesis){
+    public ExpressionTemplate read(ExpressionTemplateParser parser, List<Token> tokenList) {
+        if (tokenList.get(0) == openingParenthesis) {
             int index = 0;
             int cnt = 1;
             do {
                 index += 1;
-                if(tokenList.size() <= index)
-                    return null;
-                
+                if (tokenList.size() <= index) return null;
+
                 Token token = tokenList.get(index);
-                if(token == openingParenthesis){
+                if (token == openingParenthesis) {
                     cnt++;
-                }else
-                if(token == closingParenthesis){
+                } else if (token == closingParenthesis) {
                     cnt--;
                 }
-            }while(cnt != 0);
-            
+            } while (cnt != 0);
+
             ExpressionTemplate result = parser.parse(new ArrayList<>(tokenList.subList(1, index)));
             tokenList.subList(0, index + 1).clear();
-            
+
             return result;
         }
-        
+
         return null;
     }
 }

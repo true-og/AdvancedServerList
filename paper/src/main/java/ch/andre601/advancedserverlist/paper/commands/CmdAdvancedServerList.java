@@ -26,28 +26,26 @@
 package ch.andre601.advancedserverlist.paper.commands;
 
 import ch.andre601.advancedserverlist.paper.PaperCore;
+import java.util.Collections;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
+public class CmdAdvancedServerList extends Command {
 
-public class CmdAdvancedServerList extends Command{
-    
     private final PaperCore plugin;
-    
-    public CmdAdvancedServerList(PaperCore plugin){
+
+    public CmdAdvancedServerList(PaperCore plugin) {
         super(
-            "advancedserverlist",
-            "Main command of the plugin",
-            "/asl [reload|help|clearCache]",
-            Collections.singletonList("asl")
-        );
+                "advancedserverlist",
+                "Main command of the plugin",
+                "/asl [reload|help|clearCache]",
+                Collections.singletonList("asl"));
         this.plugin = plugin;
     }
-    
+
     @Override
-    public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args){
+    public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args) {
         plugin.getCore().getCommandHandler().handle(new PaperCmdSender(sender), args);
         return true;
     }

@@ -28,27 +28,27 @@ package ch.andre601.advancedserverlist.core.objects;
 import java.util.UUID;
 
 @SuppressWarnings("FieldMayBeFinal")
-public class CachedPlayer{
-    
+public class CachedPlayer {
+
     private String ip;
     private String name;
     private UUID uuid;
-    
-    public CachedPlayer(String ip, String name, UUID uuid){
+
+    public CachedPlayer(String ip, String name, UUID uuid) {
         this.ip = ip;
         this.name = name;
         this.uuid = uuid;
     }
-    
-    public String getIp(){
+
+    public String getIp() {
         return ip;
     }
-    
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    
-    public UUID getUuid(){
+
+    public UUID getUuid() {
         return uuid;
     }
 }

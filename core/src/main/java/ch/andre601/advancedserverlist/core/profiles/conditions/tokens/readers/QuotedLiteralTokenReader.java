@@ -29,34 +29,33 @@ import ch.andre601.advancedserverlist.api.objects.GenericPlayer;
 import ch.andre601.advancedserverlist.api.objects.GenericServer;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.StringToken;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.Token;
-
 import java.text.ParsePosition;
 
-public class QuotedLiteralTokenReader extends TokenReader{
-    
+public class QuotedLiteralTokenReader extends TokenReader {
+
     private final char quote;
-    
-    public QuotedLiteralTokenReader(int priority, char quote){
+
+    public QuotedLiteralTokenReader(int priority, char quote) {
         super(priority);
-        
+
         this.quote = quote;
     }
-    
+
     @Override
-    public Token read(String text, ParsePosition position, GenericPlayer player, GenericServer server){
-        if(position.getIndex() < text.length() && text.charAt(position.getIndex()) == quote){
+    public Token read(String text, ParsePosition position, GenericPlayer player, GenericServer server) {
+        if (position.getIndex() < text.length() && text.charAt(position.getIndex()) == quote) {
             int startIndex = position.getIndex();
-            
+
             position.setIndex(position.getIndex() + 1);
-            
-            while(position.getIndex() < text.length() && quote != text.charAt(position.getIndex()))
+
+            while (position.getIndex() < text.length() && quote != text.charAt(position.getIndex()))
                 position.setIndex(position.getIndex() + 1);
-            
+
             position.setIndex(position.getIndex() + 1);
-            
+
             return new StringToken(text.substring(startIndex + 1, position.getIndex() - 1));
         }
-        
+
         return null;
     }
 }

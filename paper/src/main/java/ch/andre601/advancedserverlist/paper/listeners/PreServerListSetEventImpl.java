@@ -28,9 +28,9 @@ package ch.andre601.advancedserverlist.paper.listeners;
 import ch.andre601.advancedserverlist.api.bukkit.events.PreServerListSetEvent;
 import ch.andre601.advancedserverlist.api.profiles.ProfileEntry;
 
-public class PreServerListSetEventImpl extends PreServerListSetEvent{
-    
-    public PreServerListSetEventImpl(ProfileEntry entry){
+public class PreServerListSetEventImpl extends PreServerListSetEvent {
+
+    public PreServerListSetEventImpl(ProfileEntry entry) {
         super(entry);
     }
 }

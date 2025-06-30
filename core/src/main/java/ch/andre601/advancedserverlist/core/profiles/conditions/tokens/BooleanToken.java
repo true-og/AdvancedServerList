@@ -25,18 +25,18 @@
 
 package ch.andre601.advancedserverlist.core.profiles.conditions.tokens;
 
-public class BooleanToken extends Token{
-    
+public class BooleanToken extends Token {
+
     public static final BooleanToken TRUE = new BooleanToken(true);
     public static final BooleanToken FALSE = new BooleanToken(false);
     private final boolean value;
-    
-    public BooleanToken(boolean value){
+
+    public BooleanToken(boolean value) {
         super("BOOLEAN(" + value + ")");
         this.value = value;
     }
-    
-    public boolean getValue(){
+
+    public boolean getValue() {
         return value;
     }
 }

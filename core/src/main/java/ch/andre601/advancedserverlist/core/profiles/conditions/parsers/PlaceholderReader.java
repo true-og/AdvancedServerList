@@ -28,14 +28,13 @@ package ch.andre601.advancedserverlist.core.profiles.conditions.parsers;
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.ExpressionTemplate;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.PlaceholderToken;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.Token;
-
 import java.util.List;
 
-public class PlaceholderReader extends ValueReader{
+public class PlaceholderReader extends ValueReader {
     @Override
-    public ExpressionTemplate read(ExpressionTemplateParser parser, List<Token> tokenList){
-        if(tokenList.get(0) instanceof PlaceholderToken){
-            PlaceholderToken token = (PlaceholderToken)tokenList.remove(0);
+    public ExpressionTemplate read(ExpressionTemplateParser parser, List<Token> tokenList) {
+        if (tokenList.get(0) instanceof PlaceholderToken) {
+            PlaceholderToken token = (PlaceholderToken) tokenList.remove(0);
             return token.getValue();
         }
         return null;

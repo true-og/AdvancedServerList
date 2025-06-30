@@ -29,11 +29,11 @@ import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToBoo
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToDoubleExpression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToStringExpression;
 
-public interface ExpressionTemplate{
-    
+public interface ExpressionTemplate {
+
     ToStringExpression instantiateWithStringResult();
-    
+
     ToDoubleExpression instantiateWithDoubleResult();
-    
+
     ToBooleanExpression instantiateWithBooleanResult();
 }

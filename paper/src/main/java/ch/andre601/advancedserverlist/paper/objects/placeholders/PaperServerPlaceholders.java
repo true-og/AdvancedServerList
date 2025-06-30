@@ -32,56 +32,51 @@ import ch.andre601.advancedserverlist.paper.objects.impl.PaperServerImpl;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
-public class PaperServerPlaceholders extends PlaceholderProvider{
-    
-    public PaperServerPlaceholders(){
+public class PaperServerPlaceholders extends PlaceholderProvider {
+
+    public PaperServerPlaceholders() {
         super("server");
     }
+
     @Override
-    public String parsePlaceholder(String placeholder, GenericPlayer player, GenericServer server){
-        if(!(server instanceof PaperServerImpl paperServer))
-            return null;
-        
+    public String parsePlaceholder(String placeholder, GenericPlayer player, GenericServer server) {
+        if (!(server instanceof PaperServerImpl paperServer)) return null;
+
         String[] args = placeholder.split("\\s", 2);
-        
-        return switch(args[0]){
+
+        return switch (args[0]) {
             case "playersOnline" -> {
-                if(args.length >= 2){
+                if (args.length >= 2) {
                     String[] worlds = args[1].split(",");
-                    
+
                     int players = 0;
-                    for(String worldName : worlds){
-                        if(worldName.isEmpty())
-                            continue;
-                        
+                    for (String worldName : worlds) {
+                        if (worldName.isEmpty()) continue;
+
                         World world = paperServer.worlds().get(worldName.strip());
-                        if(world == null)
-                            continue;
-                        
+                        if (world == null) continue;
+
                         players += world.getPlayers().size();
                     }
-                    
+
                     yield String.valueOf(players);
                 }
-                
+
                 yield String.valueOf(paperServer.playersOnline());
             }
             case "playersMax" -> {
-                if(args.length >= 2)
-                    yield null;
-                
+                if (args.length >= 2) yield null;
+
                 yield String.valueOf(paperServer.getPlayersMax());
             }
             case "host" -> {
-                if(args.length >= 2)
-                    yield null;
-                
+                if (args.length >= 2) yield null;
+
                 yield paperServer.getHost();
             }
             case "whitelistEnabled" -> {
-                if(args.length >= 2)
-                    yield null;
-                
+                if (args.length >= 2) yield null;
+
                 yield String.valueOf(Bukkit.hasWhitelist());
             }
             default -> null;

@@ -27,22 +27,21 @@ package ch.andre601.advancedserverlist.core.compat.papi;
 
 import java.util.function.Supplier;
 
-public class PAPICache{
-    
+public class PAPICache {
+
     private CacheValue cache = null;
-    
-    public PAPICache(){}
-    
-    public String get(Supplier<String> supplier){
-        if(cache == null || cache.isExpired())
-            cache = new CacheValue(supplier.get(), System.currentTimeMillis());
-        
+
+    public PAPICache() {}
+
+    public String get(Supplier<String> supplier) {
+        if (cache == null || cache.isExpired()) cache = new CacheValue(supplier.get(), System.currentTimeMillis());
+
         return cache.server();
     }
-    
-    private record CacheValue(String server, long timestamp){
+
+    private record CacheValue(String server, long timestamp) {
         // Consider the cache expired if it is older than 5 seconds.
-        public boolean isExpired(){
+        public boolean isExpired() {
             return (timestamp < 0L) || System.currentTimeMillis() - timestamp >= 5000L;
         }
     }

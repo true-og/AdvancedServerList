@@ -28,11 +28,11 @@ package ch.andre601.advancedserverlist.core.profiles.conditions.templates;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.Expression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToStringExpression;
 
-public abstract class AbstractUnaryToStringExpression<T extends Expression> implements ToStringExpression{
-    
+public abstract class AbstractUnaryToStringExpression<T extends Expression> implements ToStringExpression {
+
     protected final T delegate;
-    
-    public AbstractUnaryToStringExpression(T delegate){
+
+    public AbstractUnaryToStringExpression(T delegate) {
         this.delegate = delegate;
     }
 }

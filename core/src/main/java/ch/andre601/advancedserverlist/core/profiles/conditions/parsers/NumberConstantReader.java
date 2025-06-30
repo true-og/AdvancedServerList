@@ -29,14 +29,13 @@ import ch.andre601.advancedserverlist.core.profiles.conditions.templates.Constan
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.ExpressionTemplate;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.NumberToken;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.Token;
-
 import java.util.List;
 
-public class NumberConstantReader extends ValueReader{
+public class NumberConstantReader extends ValueReader {
     @Override
-    public ExpressionTemplate read(ExpressionTemplateParser parser, List<Token> tokenList){
-        if(tokenList.get(0) instanceof NumberToken){
-            return ConstantExpressionTemplate.of(((NumberToken)tokenList.remove(0)).getValue());
+    public ExpressionTemplate read(ExpressionTemplateParser parser, List<Token> tokenList) {
+        if (tokenList.get(0) instanceof NumberToken) {
+            return ConstantExpressionTemplate.of(((NumberToken) tokenList.remove(0)).getValue());
         }
         return null;
     }

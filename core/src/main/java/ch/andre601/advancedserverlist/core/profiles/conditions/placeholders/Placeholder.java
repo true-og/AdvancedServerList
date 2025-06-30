@@ -30,32 +30,32 @@ import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToDou
 import ch.andre601.advancedserverlist.core.profiles.conditions.expressions.ToStringExpression;
 import ch.andre601.advancedserverlist.core.profiles.conditions.templates.ExpressionTemplate;
 
-public interface Placeholder extends ExpressionTemplate{
-    
-    static LiteralPlaceholderValue of(String value){
+public interface Placeholder extends ExpressionTemplate {
+
+    static LiteralPlaceholderValue of(String value) {
         return new LiteralPlaceholderValue(value);
     }
-    
-    class LiteralPlaceholderValue implements Placeholder{
-        
+
+    class LiteralPlaceholderValue implements Placeholder {
+
         private final String value;
-        
-        public LiteralPlaceholderValue(String value){
+
+        public LiteralPlaceholderValue(String value) {
             this.value = value;
         }
-        
+
         @Override
-        public ToStringExpression instantiateWithStringResult(){
+        public ToStringExpression instantiateWithStringResult() {
             return ToStringExpression.literal(value);
         }
-        
+
         @Override
-        public ToDoubleExpression instantiateWithDoubleResult(){
+        public ToDoubleExpression instantiateWithDoubleResult() {
             return ToDoubleExpression.literal(value.length());
         }
-        
+
         @Override
-        public ToBooleanExpression instantiateWithBooleanResult(){
+        public ToBooleanExpression instantiateWithBooleanResult() {
             return ToBooleanExpression.literal(Boolean.parseBoolean(value));
         }
     }

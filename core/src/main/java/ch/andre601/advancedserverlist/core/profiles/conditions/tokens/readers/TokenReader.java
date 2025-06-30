@@ -28,20 +28,19 @@ package ch.andre601.advancedserverlist.core.profiles.conditions.tokens.readers;
 import ch.andre601.advancedserverlist.api.objects.GenericPlayer;
 import ch.andre601.advancedserverlist.api.objects.GenericServer;
 import ch.andre601.advancedserverlist.core.profiles.conditions.tokens.Token;
-
 import java.text.ParsePosition;
 
-public abstract class TokenReader{
-    
+public abstract class TokenReader {
+
     private final int priority;
-    
-    public TokenReader(int priority){
+
+    public TokenReader(int priority) {
         this.priority = priority;
     }
-    
-    public int getPriority(){
+
+    public int getPriority() {
         return priority;
     }
-    
+
     public abstract Token read(String text, ParsePosition position, GenericPlayer player, GenericServer server);
 }

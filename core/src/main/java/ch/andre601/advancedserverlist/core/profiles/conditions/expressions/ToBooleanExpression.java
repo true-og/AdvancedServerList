@@ -25,24 +25,24 @@
 
 package ch.andre601.advancedserverlist.core.profiles.conditions.expressions;
 
-public interface ToBooleanExpression extends Expression{
-    
+public interface ToBooleanExpression extends Expression {
+
     boolean evaluate();
-    
-    static ToBooleanExpression literal(boolean value){
+
+    static ToBooleanExpression literal(boolean value) {
         return new ConstantToBooleanExpression(value);
     }
-    
-    class ConstantToBooleanExpression implements ToBooleanExpression{
-        
+
+    class ConstantToBooleanExpression implements ToBooleanExpression {
+
         private final boolean value;
-        
-        public ConstantToBooleanExpression(boolean value){
+
+        public ConstantToBooleanExpression(boolean value) {
             this.value = value;
         }
-        
+
         @Override
-        public boolean evaluate(){
+        public boolean evaluate() {
             return value;
         }
     }
