@@ -55,7 +55,7 @@ subprojects {
         mavenCentral()
         gradlePluginPortal()
         maven { url = uri("https://jitpack.io/") }
-        maven { url = uri("https://repo.sleeping.town/") }
+        maven { url = uri("https://codeberg.org/api/packages/Andre601/maven/") }
         maven { url = uri("https://repo.william278.net/releases/") }
         maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/") }
         maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
