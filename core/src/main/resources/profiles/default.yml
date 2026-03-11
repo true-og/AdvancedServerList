@@ -4,7 +4,7 @@
 #
 # Read more: https://asl.andre601.ch/profiles/#priority
 #
-priority: 0
+priority: 1
 
 #
 # Set conditions that need to me met to show this profile.
@@ -55,14 +55,14 @@ priority: 0
 #
 # Set the default (Global) MOTD used by this server list profile.
 # Supports HEX colors for 1.16+ servers including gradients using MiniMessage's <gradient:color:color> format.
-# 
+#
 # Remove this option or set it to motd: [] to not alter the MOTD.
 #
 # Read more: https://asl.andre601.ch/profiles/#motd
 #
 motd:
-  - '<grey>Line 1'
-  - '<grey>Line 2'
+  - '<bold><green>True<red>OG</bold> <yellow>Network</yellow> <rainbow>1.19 TEST SERVER</rainbow> <gold>[<bold>1.8.0</bold>-<bold>1.20.4</bold>]'
+  - '<dark_aqua>SMP <dark_red>♥ <red>Duels <dark_red>♥ <light_purple>Splegg <dark_red>♥ <dark_purple>The Herobrine <dark_red>♥ <dark_green>Build Battle'
 
 #
 # Allows you to set a global (Default) favicon for this server list profile.
@@ -75,7 +75,7 @@ motd:
 #
 # Read more: https://asl.andre601.ch/profiles/#favicon
 #
-favicon: ''
+favicon: 'server-icon.png'
 
 #
 # Contains various options to manipulate the player count (Text displaying online and max players allowed).
@@ -102,12 +102,12 @@ playerCount:
   # Read more: https://asl.andre601.ch/profiles/#hover
   #
   hover:
-    - '<grey>Line 1'
-    - '<grey>Line 2'
-    - '<grey>Line 3'
+    - '<dark_purple><bold>Server Jar:</bold> Purpur 1.19.4'
+    - '<yellow><bold>Host:</bold> Hetzner Falkenstein, DE'
+    - '<dark_red>♥ <aqua><bold>ad astra per aspera</bold> <dark_red>♥'
   #
   # Modifies the text that usually displays '<online>/<max>'
-  # 
+  #
   # Note that when used, the Ping icon will display as 'outdated server'/'outdated client'.
   # This is nothing that can be fixed or avoided and would require changes from Mojang.
   #
@@ -160,10 +160,10 @@ playerCount:
     # When enabled will the total amount of players allowed to join be changed to what 'amount' is set to.
     #
     # Defaults to false when not present.
-    # 
+    #
     # Read more: https://asl.andre601.ch/profiles/#maxplayers-enabled
     #
-    enabled: false
+    enabled: true
     #
     # Sets the number to display for the max number of players allowed to join your server.
     #
@@ -174,4 +174,4 @@ playerCount:
     #
     # Read more: https://asl.andre601.ch/profiles/#maxplayers-amount
     #
-    amount: 0
+    amount: 200

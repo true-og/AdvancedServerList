@@ -29,7 +29,7 @@ disableCache: false
 #
 # Defaults to false when not present.
 #
-checkUpdates: true
+checkUpdates: false
 
 #
 # Should debug mode be enabled?
