@@ -25,9 +25,8 @@ val apiVersion: String by rootProject.extra
 
 dependencies {
     implementation(project(":core"))
-    compileOnly("ch.andre601.asl-api:platform-bukkit:3.2.0")
+    implementation("ch.andre601.asl-api:platform-bukkit:3.2.0")
     compileOnly("io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT")
-    implementation("org.bstats:bstats-bukkit:3.0.2")
     compileOnly("me.clip:placeholderapi:2.11.5")
     compileOnly("com.viaversion:viaversion-api:4.9.2")
 }
