@@ -51,18 +51,6 @@ subprojects {
         from("${rootProject.projectDir}/LICENSE") { into("/") }
     }
 
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-        maven { url = uri("https://jitpack.io/") }
-        maven { url = uri("https://codeberg.org/api/packages/Andre601/maven/") }
-        maven { url = uri("https://repo.william278.net/releases/") }
-        maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/") }
-        maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
-        maven { url = uri("https://repo.extendedclip.com/content/repositories/placeholderapi/") }
-        maven { url = uri("https://repo.viaversion.com/") }
-    }
-
     tasks.withType<AbstractArchiveTask>().configureEach {
         isPreserveFileTimestamps = false
         isReproducibleFileOrder = true

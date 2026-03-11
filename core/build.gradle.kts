@@ -26,7 +26,7 @@ plugins {
 val apiVersion: String by rootProject.extra
 
 dependencies {
-    implementation("ch.andre601.asl-api:api:$apiVersion")
+    implementation("com.github.Andre601.asl-api:api:v3.2.0")
     compileOnly("org.spongepowered:configurate-yaml:4.1.2")
     compileOnly("net.kyori:adventure-api:4.15.0")
     compileOnly("net.kyori:adventure-text-minimessage:4.15.0")
@@ -35,7 +35,7 @@ dependencies {
     implementation("com.unascribed:flexver-java:1.1.1")
     compileOnly("com.google.guava:guava:33.0.0-jre")
     compileOnly("net.william278:papiproxybridge:1.5")
-    compileOnly("eu.kennytv.maintenance:maintenance-api:4.2.0-SNAPSHOT")
+    implementation("eu.kennytv.maintenance:maintenance-api:4.2.1")
 }
 
 tasks.shadowJar { relocate("com.unascribed", "ch.andre601.advancedserverlist.core.depends.flexver") }
