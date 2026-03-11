@@ -130,16 +130,6 @@ public class AdvancedServerList<F> {
             return;
         }
 
-        if (getFileHandler().isOldConfig()) {
-            getPlugin().getPluginLogger().info("Detected old config.yml. Attempting to migrate...");
-            if (getFileHandler().migrateConfig()) {
-                getPlugin().getPluginLogger().info("Migration completed successfully!");
-            } else {
-                getPlugin().getPluginLogger().warn("Couldn't migrate config.yml! Check previous lines for errors.");
-                return;
-            }
-        }
-
         if (getFileHandler().loadProfiles()) {
             getPlugin()
                     .getPluginLogger()
@@ -165,12 +155,6 @@ public class AdvancedServerList<F> {
 
         getPlugin().getPluginLogger().info("Loading playercache.json...");
         getPlayerHandler().load();
-
-        getPlugin()
-                .getPluginLogger()
-                .info("Loading bStats metrics. Disable it in the global config under /plugins/bstats/");
-        plugin.loadMetrics();
-        getPlugin().getPluginLogger().info("Metrics loaded!");
 
         getPlugin().getPluginLogger().info("AdvancedServerList is ready!");
 
