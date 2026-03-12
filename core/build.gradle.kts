@@ -27,8 +27,8 @@ val apiVersion: String by rootProject.extra
 
 dependencies {
     implementation("com.github.Andre601.asl-api:api:v3.2.0")
-    implementation("eu.kennytv.maintenance:maintenance-api:4.2.1")
     implementation("com.unascribed:flexver-java:1.1.1")
+    compileOnly("eu.kennytv.maintenance:maintenance-api:4.2.1")
     compileOnly("org.spongepowered:configurate-yaml:4.1.2")
     compileOnly("net.kyori:adventure-api:4.15.0")
     compileOnly("net.kyori:adventure-text-minimessage:4.15.0")

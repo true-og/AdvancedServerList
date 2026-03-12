@@ -7,16 +7,16 @@ main: 'ch.andre601.advancedserverlist.paper.PaperCore'
 
 api-version: '1.19'
 
-folia-supported: true
+folia-supported: false
 
 dependencies:
   server:
     ViaVersion:
       load: BEFORE
-      required: false
+      required: true
     Maintenance:
       load: BEFORE
-      required: false
+      required: true
 
 # The below stuff is NOT used by Paper plugin.
 commands:
