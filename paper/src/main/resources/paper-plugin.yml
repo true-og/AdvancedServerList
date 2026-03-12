@@ -14,9 +14,11 @@ dependencies:
     ViaVersion:
       load: BEFORE
       required: true
+      join-classpath: true
     Maintenance:
       load: BEFORE
       required: true
+      join-classpath: true
 
 # The below stuff is NOT used by Paper plugin.
 commands:
