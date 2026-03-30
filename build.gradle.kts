@@ -20,7 +20,7 @@ plugins {
     id("java")
     id("java-library")
     id("com.diffplug.spotless") version "7.0.4"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "8.3.9"
     eclipse
 }
 
@@ -33,7 +33,7 @@ val apiVersion by extra("v3.2.0")
 
 subprojects {
     apply(plugin = "java-library")
-    apply(plugin = "com.github.johnrengelman.shadow")
+    apply(plugin = "com.gradleup.shadow")
     apply(plugin = "com.diffplug.spotless")
 
     java {
@@ -85,4 +85,3 @@ subprojects {
 }
 
 tasks.jar { archiveClassifier.set("part") }
-
