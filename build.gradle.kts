@@ -28,6 +28,7 @@ java { sourceCompatibility = JavaVersion.VERSION_17 }
 
 group = "ch.andre601.advancedserverlist"
 version = "4.0.0"
+description = "Customize your MOTD"
 
 val apiVersion by extra("v3.2.0")
 
@@ -45,9 +46,14 @@ subprojects {
     }
 
     tasks.named<ProcessResources>("processResources") {
-        val props = mapOf("version" to version, "apiVersion" to rootProject.extra["apiVersion"])
+        val props =
+            mapOf(
+                "version" to version,
+                "apiVersion" to rootProject.extra["apiVersion"],
+                "description" to rootProject.description
+            )
         inputs.properties(props)
-        filesMatching("plugin.yml") { expand(props) }
+        filesMatching(listOf("plugin.yml", "paper-plugin.yml")) { expand(props) }
         from("${rootProject.projectDir}/LICENSE") { into("/") }
     }
 
