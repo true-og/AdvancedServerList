@@ -61,8 +61,8 @@ priority: 1
 # Read more: https://asl.andre601.ch/profiles/#motd
 #
 motd:
-  - '<bold><green>True<red>OG</bold> <yellow>Network</yellow> <aqua>》<rainbow>1.19 Public Beta</rainbow> <aqua>《 <gold>[<bold>1.8.0</bold>-<bold>1.21.11</bold>]'
-  - '<dark_aqua>SMP <dark_red>♥ <red>Duels <dark_red>♥ <light_purple>Splegg <dark_red>♥ <dark_purple>The Herobrine <dark_red>♥ <dark_green>Build Battle'
+  - '<bold><green>True<red>OG</bold> <yellow>Network</yellow> <aqua>》<rainbow>1.19 Public Beta</rainbow><aqua>《 <gold>[1.8.0-1.21.11]'
+  - '<dark_green>SMP <dark_red>♥ <red>Duels <dark_red>♥ <light_purple>Splegg <dark_red>♥ <dark_purple>The Herobrine <dark_red>♥ <dark_aqua>Build Battle'
 
 #
 # Allows you to set a global (Default) favicon for this server list profile.
