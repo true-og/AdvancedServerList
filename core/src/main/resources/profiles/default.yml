@@ -61,7 +61,7 @@ priority: 1
 # Read more: https://asl.andre601.ch/profiles/#motd
 #
 motd:
-  - '<bold><green>True<red>OG</bold> <yellow>Network</yellow>    <rainbow>1.19.4 BETA 2</rainbow>    <gold>[<bold>1.8.0</bold>-<bold>1.21.11</bold>]'
+  - '<bold><green>True<red>OG</bold> <yellow>Network</yellow> <aqua>》<rainbow>1.19 Public Beta</rainbow> <aqua>《 <gold>[<bold>1.8.0</bold>-<bold>1.21.11</bold>]'
   - '<dark_aqua>SMP <dark_red>♥ <red>Duels <dark_red>♥ <light_purple>Splegg <dark_red>♥ <dark_purple>The Herobrine <dark_red>♥ <dark_green>Build Battle'
 
 #
@@ -104,7 +104,6 @@ playerCount:
   hover:
     - '<dark_purple><bold>Server Jar:</bold> Purpur 1.19.4'
     - '<yellow><bold>Host:</bold> Hetzner Falkenstein, DE'
-    - '<dark_red>♥ <aqua><bold>ad astra per aspera</bold> <dark_red>♥'
   #
   # Modifies the text that usually displays '<online>/<max>'
   #
