@@ -31,6 +31,7 @@ version = "4.0.0"
 description = "Customize your MOTD"
 
 val apiVersion by extra("v3.2.0")
+val configVersion by extra(3)
 
 subprojects {
     apply(plugin = "java-library")
@@ -48,12 +49,13 @@ subprojects {
     tasks.named<ProcessResources>("processResources") {
         val props =
             mapOf(
-                "version" to version,
+                "version" to rootProject.version.toString(),
                 "apiVersion" to rootProject.extra["apiVersion"],
+                "configVersion" to rootProject.extra["configVersion"],
                 "description" to rootProject.description
             )
         inputs.properties(props)
-        filesMatching(listOf("plugin.yml", "paper-plugin.yml")) { expand(props) }
+        filesMatching(listOf("plugin.yml", "paper-plugin.yml", "config.yml", "version.properties")) { expand(props) }
         from("${rootProject.projectDir}/LICENSE") { into("/") }
     }
 
@@ -90,4 +92,4 @@ subprojects {
     }
 }
 
-tasks.jar { archiveClassifier.set("part") }
+tasks.jar { enabled = false }
